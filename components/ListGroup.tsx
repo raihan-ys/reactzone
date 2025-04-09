@@ -1,11 +1,22 @@
+const items = [
+  'Bukittinggi',
+  'Padang',
+  'Payakumbuh',
+  'Padang Panjang'
+];
+
 function ListGroup() {
   return (
-    <ul className="list-group">
-      <li className="list-group-item">An Item</li>
-      <li className="list-group-item">An Item</li>
-      <li className="list-group-item">An Item</li>
-      <li className="list-group-item">An Item</li>
-    </ul>
+    <>
+      <h1 className="text-primary">List</h1>
+      <ul className="list-group">
+        {items.map((item) => (
+          <li key={item} className="list-group-item text-danger">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 
