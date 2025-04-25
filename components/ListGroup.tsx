@@ -5,7 +5,7 @@ function ListGroup() {
   let selectedIndex = -1;
   // Hook (state hook). This will return an array.
   const arr = useState(-1);
-  arr[0] // variable selectedIndex
+  arr[0] = selectedIndex; // variable selectedIndex
   arr[1] // updater function
     
   return (
