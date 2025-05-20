@@ -1,15 +1,17 @@
 import { useState } from "react";
 
+// A props is an object that contains the properties passed to a component like input.
 interface Props {
-  items: string[];
   heading: string;
-  // (item:string) => void
+  items: string[];
   onSelectItem: (item:string) => void;
 }
 
-function ListGroup({ items, heading, onSelectItem } : Props) {
-  // first element is state variable, the second element is an updater function.
-  // useState is a hook (built-in react function) that allows you to add state to a functional component.
+function ListGroup({ heading, items, onSelectItem } : Props) {
+  /*
+   * First element is a state variable, the second element is an updater function.
+   * useState is a hook (built-in react function) that allows you to add state to a functional component.
+   */  
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
@@ -17,6 +19,7 @@ function ListGroup({ items, heading, onSelectItem } : Props) {
       <h1 className="text-danger">{heading}</h1>
 
       {items.length == 0 && <p className="text-danger">No items found!</p>}
+      
       <ul className="list-group">
         {items.map((item, index) => (
           <li
