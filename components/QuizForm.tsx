@@ -1,38 +1,47 @@
 import { useState } from "react";
 
-export default function QuizForm() {
+interface Props {
+  headingStyle: string;
+  paragraphStyle: string;
+  textareaStyle: string;
+  buttonStyle: string;
+  errorStyle: string;
+}
+
+export default function QuizForm({ headingStyle, paragraphStyle, textareaStyle, buttonStyle, errorStyle }: Props) {
+  // This is a functional component that uses React hooks to manage state.
   const [answer, setAnswer] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState< Error | null >(null);
   const [status, setStatus] = useState('typing');
 
-  // This function is called when the form is submitted.
+  // Show success message if answer is correct.
   if (status === 'success') {
     return <h1>That's right</h1>
   }
 
   // Handle the form submission.
-  async function handleSubmit (e) {
+  async function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus('submitting');
 
     try {
       await submitForm(answer);
       setStatus('success');
-    } catch (err) {
+    } catch (err: Error | any) {
       setStatus('typing');
       setError(err);
     }
   }
 
-  function handleTextareaChange (e) {
+  function handleTextareaChange (e: React.ChangeEvent<HTMLTextAreaElement>) {
     setAnswer(e.target.value);
   }
 
   return (
     <>
-      <h2>City Quiz</h2>
+      <h2 className={ headingStyle }>City Quiz</h2>
 
-      <p>
+      <p className={ paragraphStyle }>
         In which city is there a billboard that turns air into drinkable water?
       </p>
 
@@ -41,35 +50,40 @@ export default function QuizForm() {
           value={answer}
           onChange={handleTextareaChange}
           disabled={status === 'submitting'}
+          className={ textareaStyle }
+          placeholder="Type your answer here..."
         />
         <br />
-        <button disabled={
-          answer.length === 0 ||
-          status === 'submitting'
-        }>
+        <button 
+          disabled={
+            answer.length === 0 ||
+            status === 'submitting'
+          } 
+          className={ buttonStyle }
+        >
           Submit
         </button>
         {error !== null &&
-          <p className="text-danger">
+          <p className={ errorStyle }>
             {error.message}
           </p>
         } 
       </form>
     </>
   );
-}
 
-function submitForm (answer) {
-  // Pretend it's hitting the network
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let shouldError = answer.toLowerCase !== 'lima';
+  // Pretend it's hitting the network.
+  function submitForm (answer: string) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let shouldError = answer.toLowerCase() !== 'lima';
 
-      if (shouldError) {
-        reject(new Error('Wrong answer.Try again!'))
-      } else {
-        resolve('');
-      }
-    }, 1500);
-  });
+        if (shouldError) {
+          reject(new Error('Wrong answer.Try again!'))
+        } else {
+          resolve('');
+        }
+      }, 1500);
+    });
+  }
 }
