@@ -1,4 +1,4 @@
-import Profile from '../components/Profile';
+import QuizForm from '../components/QuizForm';
 
 function MyMood() {
   return (
@@ -21,10 +21,10 @@ function Greeting({ name }: { name: string }) {
 function App() {
   // This is the child element.
   return <div className="text-center">
-    <MyMood/>
+    <MyMood />
     <Greeting name="raihan" />
     <br />
-    <Profile />
+    <QuizForm headingStyle='text-danger font-weight-bold' paragraphStyle='text-secondary' textareaStyle='rounded border-danger' buttonStyle='btn btn-sm btn-danger' errorStyle='text-danger bold' />
   </div>
 }
 
