@@ -1,4 +1,4 @@
-import QuizForm from '../components/QuizForm';
+import ListGroup from '../components/ListGroup';
 
 function MyMood() {
   return (
@@ -22,9 +22,7 @@ function App() {
   // This is the child element.
   return <div className="text-center">
     <MyMood />
-    <Greeting name="raihan" />
-    <br />
-    <QuizForm headingStyle='text-danger font-weight-bold' paragraphStyle='text-secondary' textareaStyle='rounded border-danger' buttonStyle='btn btn-sm btn-danger' errorStyle='text-danger bold' />
+    <ListGroup heading='Top 3 Cities in West Sumatra' items={ ['Padang', 'Bukittinggi', 'Payakumbuh'] } onSelectItem={ [] } />
   </div>
 }
 

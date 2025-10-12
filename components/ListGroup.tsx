@@ -18,7 +18,7 @@ function ListGroup({ heading, items, onSelectItem } : Props) {
     <>
       <h1 className="text-danger">{heading}</h1>
 
-      {items.length == 0 && <p className="text-danger">No items found!</p>}
+      { items.length == 0 && <p className="text-danger">No items found!</p> }
       
       <ul className="list-group">
         {items.map((item, index) => (
@@ -26,7 +26,7 @@ function ListGroup({ heading, items, onSelectItem } : Props) {
             className={
               selectedIndex === index 
               ? 'list-group-item bg-danger text-white' 
-              : 'list-group-item text-danger'
+              : 'list-group-item text-dark'
             }
             key={item}
             onClick={() => {
