@@ -1,3 +1,4 @@
+
 import ListGroup from '../components/ListGroup';
 
 function MyMood() {
@@ -11,6 +12,10 @@ function MyMood() {
   );
 }
 
+const handleSelectItem = (item: string) => {
+  alert(`Kamu pilih ${item}!`);
+};
+
 function Greeting({ name }: { name: string }) {
   return name === 'Raihan'
     ? <h1>Hello, { name }! You are my best friend!</h1>
@@ -20,9 +25,9 @@ function Greeting({ name }: { name: string }) {
 // App is the parent element.
 function App() {
   // This is the child element.
-  return <div className="text-center">
+  return <div className="text-center"> 
     <MyMood />
-    <ListGroup heading='Top 3 Cities in West Sumatra' items={ ['Padang', 'Bukittinggi', 'Payakumbuh'] } onSelectItem={ [] } />
+    <ListGroup heading='Top 3 Cities in West Sumatra' items={ ['Padang', 'Bukittinggi', 'Payakumbuh'] } onSelectItem={handleSelectItem} />
   </div>
 }
 
