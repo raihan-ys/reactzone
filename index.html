@@ -3,26 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <link rel="icon" type="image/png" href="/logo.png"/>
     <title>React Dev.</title>
-
-    <link rel="stylesheet" href="src/assets/style.css"/>
+    <link rel="icon" type="image/png" href="/logo.png"/>
+    <link rel="stylesheet" href="/src/App.css"/>
   </head>
-  <body class="bg-dark">
-    <!-- navbar -->
-    <nav class="nav">
+  <body class="bg-dark container p-3">
 
-      <!-- logo -->
+    <nav>
       <div class="d-flex flex-row align-items-center">
         <img src="/logo.png" alt="React Dev's Logo" style="height: 50px; width: 50px;">
-        <span class="text-danger">React .</span>
+        <h3 class="text-danger">React Dev.</h3>
       </div>
     </nav>
 
-    <h1 class="text-danger text-center">Welcome to Reactzone!</h1>
-
-    <!-- This is the container for the application. -->
     <div id="root" class="container bg-light rounded p-3"></div>
     
     <!-- This is the entry point for the application. -->

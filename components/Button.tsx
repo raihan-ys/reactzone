@@ -10,7 +10,8 @@ const Button = ({ children, color = 'secondary', onClick }: Props) => {
 	return (
 		<button 
 			className={'btn btn-' + color + ' btn-lg'}
-			onClick={onClick}>
+			onClick={onClick}
+		>
 			{children}
 		</button>
 	)
