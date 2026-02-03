@@ -18,7 +18,7 @@ function Board() {
   function handleClick(i) {
     // Create a copy of squares array to modify
     const nextSquares = squares.slice();
-      
+    nextSquares[i] = 'X';
 
     // Update the square component from the modified copy
     setSquares(nextSquares);
