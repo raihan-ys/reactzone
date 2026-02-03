@@ -11,14 +11,14 @@ function Square({value, onSquareClick}) {
 
 // This parent component is keeping all the children Square's state
 function Board() {
-  // Set all squares to null initially and update function when clicked
+  const [oIsNext, setOIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
   // Handle on square click
   function handleClick(i) {
     // Create a copy of squares array to modify
     const nextSquares = squares.slice();
-    nextSquares[i] = 'X';
+    nextSquares[i] = 'O';
 
     // Update the square component from the modified copy
     setSquares(nextSquares);
