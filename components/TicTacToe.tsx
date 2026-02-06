@@ -3,8 +3,7 @@ import {useState} from 'react';
 // Square that will build up the board
 function Square( {value, onSquareClick} ) {
   return (
-    <button 
-      className="square bg-danger text-white border-dark rounded" onClick={onSquareClick}>
+    <button className="square bg-danger text-white border-dark rounded" onClick={onSquareClick}>
       {value}
     </button>
   );
@@ -33,7 +32,7 @@ function Board( {oIsNext, squares, onPlay} ) {
     onPlay(nextSquares);
   }
 
-  // Check winner
+  // Set status
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
@@ -68,9 +67,10 @@ function Board( {oIsNext, squares, onPlay} ) {
 	);
 }
 
-function Game() {
-  // Store past moves
+export default function Game() {
+  // Switch turn
   const [oIsNext, setOIsNext] = useState(true);
+  // Store past moves
   const [history, setHistory] = useState( [Array(9).fill(null)] );
   const currentSquares = history[history.length - 1];
 
@@ -93,8 +93,9 @@ function Game() {
           <Board oIsNext={oIsNext} squares={currentSquares} onPlay={handlePlay} />
         </div>
         <div className="game-info">
+          {/* Show past moves */}
           <ol>
-            {/* TODO */}
+            
           </ol>
         </div>
       </div>
@@ -129,8 +130,4 @@ function calculateWinner(squares) {
   }
 
   return null;
-}
-
-export default function TicTacToe() {
-  return <Game />;
 }
