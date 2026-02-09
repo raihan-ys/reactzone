@@ -1,15 +1,16 @@
 const user = {
-  name: 'Hedy Lamarr',
-  description: 'Hedy Lamarr was an Austrian and American actress and inventor. After a brief early film career in Czechoslovakia, including the controversial erotic romantic drama Ecstasy, she fled from her first husband, Friedrich Mandl, and secretly moved to Paris.',
-  imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
+  name: 'Raihan Yudi Syukma',
+  description: 'Raihan Yudi Syukma adalah seorang pengembang web Fullstack Developer asal Pekanbaru yang memiliki keahlian dalam membangun aplikasi web menggunakan berbagai kerangka kerja modern',
+  imageUrl: 'https://media.licdn.com/dms/image/v2/D4E35AQF2Pnw-NOyGQw/profile-framedphoto-shrink_400_400/B4EZofCMVhJ0Ac-/0/1761457260122?e=1768370400&v=beta&t=1rDCh7VVZsdsz5UbSD8q5vP6Tw8a_Qkw8U9LWHWMhyI',
   imageSize: 90,
   borderRadius: '50%'
 };
 
 function Profile() {
+  const greet = user.name == 'Raihan Yudi Syukma' && user.imageSize == 90 ? 'Hello, Raihan!' : 'Hello, Guest!';
   return (
-    <div className="border border-primary border-2 rounded p-4 d-inline-block mt-4">
-      <h1>{user.name}</h1>
+    <div className="border border-5 rounded d-inline-block p-3">
+      <h1 className="text-light">{greet}</h1>
       <img
         src={user.imageUrl}
         alt={'Photo of ' + user.name}
@@ -19,7 +20,7 @@ function Profile() {
           borderRadius: user.borderRadius
         }}
       />
-      <p className="text-start mx-auto" style={{ maxWidth: 400 }}>
+      <p className="text-start mx-auto" style={{ maxWidth: 400, color: 'white' }}>
         {user.description}
       </p>
     </div>
