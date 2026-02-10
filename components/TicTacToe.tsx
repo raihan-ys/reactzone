@@ -68,28 +68,21 @@ function Board( {oIsNext, squares, onPlay} ) {
 }
 
 export default function Game() {
-  // Switch turn
-  const [oIsNext, setOIsNext] = useState(true);
-  // Store past moves
-  const [history, setHistory] = useState( [Array(9).fill(null)] );
+  const [history, setHistory] = useState( [Array(9).fill(null)] ); // Store moves
   const [currentMove, setCurrentMove] = useState(0);
-  const currentSquares = history[currentMove];
+  const oIsNext = currentMove % 2 === 0; // Switch turn
+  const currentSquares = history[currentMove]; // Render the final move
 
   // Update the game
   function handlePlay(nextSquares) {
+    // Create a copy of history array up to current move so player can go back to this move later
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
-    setHistory(nextHistory); // Add current move to history
+    setHistory(nextHistory);
+    // Update current move
     setCurrentMove(nextHistory.length - 1);
-    setOIsNext(!oIsNext); // Switch turn
   }
 
-  // Jump to previous move
-  function jumpTo(nextMove) {
-    setCurrentMove(nextMove);
-    setOIsNext(nextMove % 2 !== 0);
-  }
-
-  // Transform the history array to an array of react elements
+  // Transform the history array to an array of react elements so it can be used in the game's UI
   const moves = history.map((squares, move) => {
     let description;
 
@@ -102,16 +95,10 @@ export default function Game() {
     // Creates a new react element
     return (
       <ol key={move}>
-        <button className='btn btn-primary' onClick={() => jumpTo(move)}>{description}</button>
+        <button className='btn btn-sm btn-info mb-1' onClick={() => setCurrentMove(move)}>{description}</button>
       </ol>
     )
   });
-
-  // Restart the game
-  function restart() {
-    setHistory( [Array(9).fill(null)] );
-    setOIsNext(true);
-  }
 
   return (
     <>
@@ -120,14 +107,10 @@ export default function Game() {
           <Board oIsNext={oIsNext} squares={currentSquares} onPlay={handlePlay} />
         </div>
         <div className="game-info">
-          {/* Show past moves */}
           <ol>
             {moves}
           </ol>
         </div>
-      </div>
-      <div>
-        <button className="btn btn-secondary mt-2" onClick={restart}>Restart</button>
       </div>
     </>
   );

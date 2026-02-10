@@ -24,7 +24,7 @@ function ListGroup({ heading, items, onSelectItem } : Props) {
         {items.map((item, index) => (
           <li
             className={
-              selectedIndex === index 
+              selectedIndex === index
               ? 'list-group-item bg-danger text-white' 
               : 'list-group-item text-dark'
             }
