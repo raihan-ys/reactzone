@@ -82,6 +82,7 @@ export default function Game() {
     setCurrentMove(nextHistory.length - 1);
   }
 
+  // [IMPROVE] For the current move only, show “You are at move #…” instead of a button.
   // Transform the history array to an array of react elements so it can be used in the game's UI
   const moves = history.map((squares, move) => {
     let description;
@@ -94,9 +95,9 @@ export default function Game() {
 
     // Creates a new react element
     return (
-      <ol key={move}>
+      <li key={move}>
         <button className='btn btn-sm btn-info mb-1' onClick={() => setCurrentMove(move)}>{description}</button>
-      </ol>
+      </li>
     )
   });
 
@@ -107,9 +108,10 @@ export default function Game() {
           <Board oIsNext={oIsNext} squares={currentSquares} onPlay={handlePlay} />
         </div>
         <div className="game-info">
-          <ol>
+          <ul>
             {moves}
-          </ol>
+          </ul>
+          <span>{"You are at move # " + (currentMove + 1)}</span>
         </div>
       </div>
     </>
