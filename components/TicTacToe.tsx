@@ -45,24 +45,23 @@ function Board( {oIsNext, squares, onPlay} ) {
 		<> 
       <div className="status">{status}</div>
       {/*
-        Create a function that calls handleClick(i) because if we just pass handleClick(i) 
+        Create a function that calls handleClick(id) because if we just pass handleClick(id) 
         on the props, the function will run before the user click on it (we calling the function right away).
       */}
-			<div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)}/>
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)}/>
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)}/>
-      </div>
-      <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)}/>
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)}/>
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)}/>
-      </div>
-      <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)}/>
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)}/>
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)}/>
-      </div>
+			{ Array.from( { length: 3 } ).map((_, row) => (
+        <div key={row} className="board-row">
+          { Array.from( { length: 3 } ).map((_, col) => {
+            const id = row * 3 + col;
+            return (
+              <Square
+                key={col}
+                value={squares[id]}
+                onSquareClick={ () => handleClick(id) }
+              />
+            );
+          })}
+        </div>
+      ))}
     </>
 	);
 }
@@ -82,7 +81,6 @@ export default function Game() {
     setCurrentMove(nextHistory.length - 1);
   }
 
-  // [IMPROVE] For the current move only, show “You are at move #…” instead of a button.
   // Transform the history array to an array of react elements so it can be used in the game's UI
   const moves = history.map((squares, move) => {
     let description;
@@ -108,7 +106,8 @@ export default function Game() {
           <Board oIsNext={oIsNext} squares={currentSquares} onPlay={handlePlay} />
         </div>
         <div className="game-info">
-          <ul>
+          {/*TODO: Add a toggle button that lets you sort the moves in either ascending or descending order */}
+          <ul style={ { listStyleType: 'none' } }>
             {moves}
           </ul>
           <span>{"You are at move # " + (currentMove + 1)}</span>
