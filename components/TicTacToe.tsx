@@ -12,6 +12,7 @@ function Square( {value, onSquareClick, isWinningSquare} ) {
 // This parent component is keeping all the children Square's state
 function Board( {oIsNext, squares, onPlay} ) {
   // Handle on square click
+  // TODO: Display the location for each move in the format (row, col) in the move history list.
   function handleClick(i) {
     // Check winner or is the square filled
     if (calculateWinner(squares) || squares[i]) {
@@ -28,8 +29,8 @@ function Board( {oIsNext, squares, onPlay} ) {
       nextSquares[i] = 'X'
     }
 
-    // Switch turn and update squares state
-    onPlay(nextSquares);
+    // Switch turn and update squares state, also the square's index
+    onPlay(nextSquares, i);
   }
 
   // Set status
@@ -39,6 +40,8 @@ function Board( {oIsNext, squares, onPlay} ) {
   let status;
   if (winner) {
     status = "Winner: " + winner;
+  } else if (!winner && squares.every(square => square !== null)) {
+    status = "It's a draw!";
   } else {
     status = "Next Player: " + (oIsNext ? 'O' : 'X');
   }
@@ -70,25 +73,42 @@ function Board( {oIsNext, squares, onPlay} ) {
 }
 
 export default function Game() {
-  const [history, setHistory] = useState( [Array(9).fill(null)] ); // Store moves
+  // Store moves and square's index
+  const [history, setHistory] = useState([
+    { squares: Array(9).fill(null),
+      row: null,
+      col: null 
+    }
+  ]);
   const [currentMove, setCurrentMove] = useState(0);
   const oIsNext = currentMove % 2 === 0; // Switch turn
-  const currentSquares = history[currentMove]; // Render the final move
+  const currentSquares = history[currentMove].squares; // Render the final move
   const [isAscending, setIsAscending] = useState(true); // Order of move buttons
 
   // Update the game
-  function handlePlay(nextSquares) {
+  function handlePlay(nextSquares, squareIndex) {
+    const row = Math.floor(squareIndex / 3);
+    const col = squareIndex % 3;
+
     // Create a copy of history array up to current move so player can go back to this move later
-    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    const nextHistory = [
+      ...history.slice(0, currentMove + 1),
+      {
+        squares: nextSquares,
+        row,
+        col,
+      }
+    ];
+
     setHistory(nextHistory);
     // Update current move
     setCurrentMove(nextHistory.length - 1);
   }
 
   // Transform history array to an array of react elements
-  const moves = history.map((squares, move) => {
+  const moves = history.map((step, move) => {
     const description = move > 0
-      ? "Go to move #" + move
+      ? `Go to move #${move} (${step.row + 1}, ${step.col + 1})`
       : "Go to game start";
 
     return { move, description };
