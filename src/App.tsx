@@ -10,7 +10,8 @@ function App() {
     <>
       <h2>Choose a game:</h2>
       <ul>
-        <li></li>
+        <li>Tic Tac Toe</li>
+        <li>City Quiz</li>
       </ul>
     </>
   );
