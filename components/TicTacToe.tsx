@@ -72,7 +72,7 @@ function Board( {oIsNext, squares, onPlay} ) {
 	);
 }
 
-export default function Game() {
+export default function TicTacToe() {
   // Store moves and square's index
   const [history, setHistory] = useState([
     { squares: Array(9).fill(null),
