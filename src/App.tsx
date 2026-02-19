@@ -1,20 +1,23 @@
-import Alert from '../components/Alert';
-import Button from '../components/Button';
-import ListGroup from '../components/ListGroup';
-import Profile  from '../components/Profile';
-import Quizform from '../components/QuizForm';
-import TicTacToe from '../components/TicTacToe';
+import CityQuiz from '../components/CityQuiz';
 
 function App() {
-  return (
-    <>
-      <h2>Choose a game:</h2>
-      <ul>
-        <li>Tic Tac Toe</li>
-        <li>City Quiz</li>
-      </ul>
-    </>
-  );
+  // TODO: Create a main menu that list all the games
+  return <>
+    Welcome to Reactzone!
+    Choose a game:
+    <ul style={{ listStyleType: 'square' }}>
+      <li>City Quiz</li>
+      <li>Tic Tac Toe (2 Players)</li>
+    </ul>
+
+    <CityQuiz
+      headingStyle="text-primary"
+      paragraphStyle="mb-4"
+      textareaStyle="border-primary rounded"
+      buttonStyle="btn btn-primary"
+      errorStyle="text-danger"
+     />
+  </>
 }
 
 export default App;

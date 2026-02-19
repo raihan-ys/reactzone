@@ -1,20 +1,28 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>React Dev.</title>
-    <link rel="icon" type="image/png" href="/logo.png"/>
-    <link rel="stylesheet" href="/src/App.css"/>
+
+    <title>Reactzone</title>
+
+    <link rel="icon" type="image/png" href="/src/assets/logo.png"/>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/src/assets/style.css"/>
   </head>
-  <body class="bg-dark container p-3">
-    <nav>
-      <div class="d-flex flex-row align-items-center">
-        <img src="/logo.png" alt="React Dev's Logo" style="height: 50px; width: 50px;">
-        <h3 class="text-danger">React Dev.</h3>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <img class="navbar-brand" id="appLogo" src="/src/assets/logo.png" alt="Reactzone's Logo">
+        <h3 class="text-primary">Reactzone</h3>
       </div>
     </nav>
+
     <div id="root" class="container bg-light rounded p-3"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

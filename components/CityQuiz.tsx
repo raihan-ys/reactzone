@@ -1,27 +1,17 @@
 import { useState } from "react";
 
-interface Props {
-  headingStyle: string;
-  paragraphStyle: string;
-  textareaStyle: string;
-  buttonStyle: string;
-  errorStyle: string;
-}
-
-export default function QuizForm({ headingStyle, paragraphStyle, textareaStyle, buttonStyle, errorStyle }: Props) {
-  // This is a functional component that uses React hooks to manage state.
+export default function CityQuiz({ headingStyle, paragraphStyle, textareaStyle, buttonStyle, errorStyle }) {
   const [answer, setAnswer] = useState('');
-  const [error, setError] = useState< Error | null >(null);
+  const [error, setError] = useState< Error | null >(null); // Error state (null if no error) defaults to null
   const [status, setStatus] = useState('typing');
 
-  // Show success message if answer is correct.
   if (status === 'success') {
-    return <h1>That's right</h1>
+    return <h1 className={ headingStyle }>That's right</h1>
   }
 
-  // Handle the form submission.
+  // Handle form submission
   async function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
     setStatus('submitting');
 
     try {
