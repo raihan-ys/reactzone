@@ -8,20 +8,25 @@
     <title>Reactzone</title>
 
     <link rel="icon" type="image/png" href="/src/assets/logo.png"/>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/src/assets/style.css"/>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   </head>
 
   <body>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg bg-dark mb-4">
+      <div class="container">
         <img class="navbar-brand" id="appLogo" src="/src/assets/logo.png" alt="Reactzone's Logo">
-        <h3 class="text-primary">Reactzone</h3>
+        <h3 class="navbar-text text-primary">Reactzone_</h3>
       </div>
     </nav>
 
-    <div id="root" class="container bg-light rounded p-3"></div>
+    <div id="root" class="container"></div>
+    
     <script type="module" src="/src/main.tsx"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>

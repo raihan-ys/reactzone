@@ -9,8 +9,36 @@ body {
 }
 
 #appLogo {
-  height: 50px;
+  max-height: 60px;
   width: 50px;
+}
+
+.navbar-text {
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#welcome-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+  border-right: .12em solid rgb(255, 0, 179);
+
+  --chars: 20;
+
+  animation: typewriter-effect 3s steps(var(--chars)), blink-caret 0.85s step-end infinite;
+}
+
+@keyframes typewriter-effect {
+  from { width: 0; }
+  to { width: calc(var(--chars) * 1ch); }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: rgb(255, 0, 179) }
 }
 
 h1 {
