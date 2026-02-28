@@ -1,4 +1,4 @@
-import CityQuiz from '../components/CityQuiz';
+import TicTacToe from '../components/TicTacToe.tsx';
 
 function App() {
   // TODO: Create a main menu that list all the games
@@ -10,7 +10,7 @@ function App() {
       <li>Tic Tac Toe (2 Players)</li>
     </ul>
 
-    <CityQuiz
+    <TicTacToe
       headingStyle="text-primary"
       paragraphStyle="mb-4"
       textareaStyle="border-primary rounded"
