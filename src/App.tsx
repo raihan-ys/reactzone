@@ -10,13 +10,7 @@ function App() {
       <li>Tic Tac Toe (2 Players)</li>
     </ul>
 
-    <TicTacToe
-      headingStyle="text-primary"
-      paragraphStyle="mb-4"
-      textareaStyle="border-primary rounded"
-      buttonStyle="btn btn-primary"
-      errorStyle="text-danger"
-     />
+    <TicTacToe />
   </>
 }
 
