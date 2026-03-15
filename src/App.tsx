@@ -1,4 +1,4 @@
-import TicTacToe from '../components/TicTacToe.tsx';
+import RockPaperScissors from '../components/RockPaperScissors.tsx';
 
 function App() {
   // TODO: Create a main menu that list all the games
@@ -10,7 +10,7 @@ function App() {
       <li>Tic Tac Toe (2 Players)</li>
     </ul>
 
-    <TicTacToe />
+    <RockPaperScissors />
   </>
 }
 
