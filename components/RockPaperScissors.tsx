@@ -45,27 +45,27 @@ export default function RockPaperScissors() {
         }
     }
 
-        return (
-            <div className="container">
-                <h1>Welcome to Rock, Paper, Scissors Game</h1>
-                <div >
-                    <button onClick={() => decision("ROCK")}>
-                        <i className="fas fa-hand-rock" /> Rock
-                    </button>
-                    <button onClick={() => decision("PAPER")}>
-                        <i className="fas fa-hand-paper" /> Paper
-                    </button>
-                    <button onClick={() => decision("SCISSORS")}>
-                        <i className="fas fa-hand-scissors" />  Scissors 
-                    </button>
-                </div>
-                <div className="content">
-                    <p>Your choice: {playerVal}</p>
-                    <p>Computer's choice: {compVal}</p>
-                    <h2>Your Score:{playerScore}</h2>
-                    <h2>Computer Score: {compScore}</h2>
-                </div>
+    return (
+        <div className="container">
+            <h1>Welcome to Rock, Paper, Scissors Game</h1>
+            <div >
+                <button onClick={() => decision("ROCK")}>
+                    <i className="fas fa-hand-rock" /> Rock
+                </button>
+                <button onClick={() => decision("PAPER")}>
+                    <i className="fas fa-hand-paper" /> Paper
+                </button>
+                <button onClick={() => decision("SCISSORS")}>
+                    <i className="fas fa-hand-scissors" />  Scissors 
+                </button>
             </div>
-        );
+            <div className="content">
+                <p>Your choice: {playerVal}</p>
+                <p>Computer's choice: {compVal}</p>
+                <h2>Your Score:{playerScore}</h2>
+                <h2>Computer Score: {compScore}</h2>
+            </div>
+        </div>
+    );
 
 }
