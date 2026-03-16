@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import CityQuiz from '../components/CityQuiz.tsx'
-import TicTacToe from '../components/TicTacToe.tsx'
+import TicTacToe from '../components/TicTacToe.jsx';
 import RockPaperScissors from '../components/RockPaperScissors.tsx';
 
 function App() {

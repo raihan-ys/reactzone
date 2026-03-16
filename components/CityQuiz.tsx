@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-export default function CityQuiz({ headingStyle, paragraphStyle, textareaStyle, buttonStyle, errorStyle }) {
+type props = {
+  headingStyle: string;
+  paragraphStyle: string;
+  textareaStyle: string;
+  buttonStyle: string;
+  errorStyle: string;
+};
+
+export default function CityQuiz({ headingStyle, paragraphStyle, textareaStyle, buttonStyle, errorStyle }: props) {
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState< Error | null >(null); // Error state (null if no error) defaults to null
   const [status, setStatus] = useState('typing');
@@ -17,9 +25,9 @@ export default function CityQuiz({ headingStyle, paragraphStyle, textareaStyle, 
     try {
       await submitForm(answer);
       setStatus('success');
-    } catch (err: Error | any) {
+    } catch (err: Error | unknown) {
       setStatus('typing');
-      setError(err);
+      setError(err instanceof Error ? err : new Error('An unexpected error occurred'));
     }
   }
 
@@ -66,7 +74,7 @@ export default function CityQuiz({ headingStyle, paragraphStyle, textareaStyle, 
   function submitForm (answer: string) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        let shouldError = answer.toLowerCase() !== 'lima';
+        const shouldError = answer.toLowerCase() !== 'lima';
 
         if (shouldError) {
           reject(new Error('Wrong answer.Try again!'))

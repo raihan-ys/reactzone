@@ -2,13 +2,13 @@ import {useState} from 'react';
 
 export default function RockPaperScissors() {
     // Data game yang akan dipakai
-    const [playerVal, setPlayerVal] = useState(null); // Pilihan player
-    const [compVal, setCompVal] = useState(null); // Pilihan lawan
+    const [playerVal, setPlayerVal] = useState<string | null>(null); // Pilihan player
+    const [compVal, setCompVal] = useState<string | null>(null); // Pilihan lawan
     const [playerScore, setPlayerScore] = useState(0); // Skor player
     const [compScore, setCompScore] = useState(0); // Skor lawan
 
     // Menentukan pemenang ronde
-    let logic = (playerVal, compVal) => {
+    const logic = (playerVal: string | null, compVal: string | null) => {
         // Imbang
         if (playerVal == compVal) {
             return 0;
@@ -25,7 +25,7 @@ export default function RockPaperScissors() {
         }
     }
 
-    let decision = (playerChoice) => {
+    const decision = (playerChoice: string) => {
         const choices = ["ROCK", "PAPER", "SCISSORS"]; // Daftar pilihan
         const compChoice = choices[Math.floor(Math.random() * choices.length)]; // Pilihan acak komputer
         const val = logic(playerChoice, compChoice); // Mendapatkan pemenang setiap ronde
