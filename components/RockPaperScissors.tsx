@@ -9,14 +9,18 @@ export default function RockPaperScissors() {
 
     // Menentukan pemenang ronde
     let logic = (playerVal, compVal) => {
+        // Imbang
         if (playerVal == compVal) {
             return 0;
         }
+        // Pemain menang
         else if ((playerVal == "ROCK" && compVal == "SCISSORS") ||
             (playerVal == "PAPER" && compVal == "ROCK") ||
             (playerVal == "SCISSORS" && compVal == "PAPER")) {
             return 1;
-        } else {
+        } 
+        // Lawan menang
+        else {
             return -1;
         }
     }
@@ -24,21 +28,25 @@ export default function RockPaperScissors() {
     let decision = (playerChoice) => {
         const choices = ["ROCK", "PAPER", "SCISSORS"]; // Daftar pilihan
         const compChoice = choices[Math.floor(Math.random() * choices.length)]; // Pilihan acak komputer
-        const val = logic(playerChoice, compChoice);
+        const val = logic(playerChoice, compChoice); // Mendapatkan pemenang setiap ronde
         
-        // Menambah skor player atau lawan sesuai hasil logic
-        if (val == 1) {
+        // Menambah skor player atau lawan sesuai siapa yang menang
+        // Menambah skor pemain
+        if (val == 1) { 
             console.log("Hello")
             setPlayerVal(playerChoice);
             setCompVal(compChoice);
             setPlayerScore(playerScore + 1);
         }
+        // Menambah skor lawan
         else if (val == -1) {
             console.log("Hello");
             setPlayerVal(playerChoice);
             setCompVal(compChoice);
             setCompScore(compScore + 1);
-        } else { // Imbang
+        }
+        // Imbang
+        else {
             console.log("Hello");
             setPlayerVal(playerChoice);
             setCompVal(compChoice);
@@ -46,24 +54,24 @@ export default function RockPaperScissors() {
     }
 
     return (
-        <div className="container">
-            <h1>Welcome to Rock, Paper, Scissors Game</h1>
-            <div >
-                <button onClick={() => decision("ROCK")}>
+        <div className="container text-center">
+            <h1 className="text-primary">Welcome to Rock, Paper, Scissors Game!</h1>
+            <div className="d-flex flex-row justify-content-center gap-3 mb-4">
+                <button className="btn btn-primary" onClick={() => decision("ROCK")}>
                     <i className="fas fa-hand-rock" /> Rock
                 </button>
-                <button onClick={() => decision("PAPER")}>
+                <button className="btn btn-primary" onClick={() => decision("PAPER")}>
                     <i className="fas fa-hand-paper" /> Paper
                 </button>
-                <button onClick={() => decision("SCISSORS")}>
+                <button className="btn btn-primary" onClick={() => decision("SCISSORS")}>
                     <i className="fas fa-hand-scissors" />  Scissors 
                 </button>
             </div>
             <div className="content">
-                <p>Your choice: {playerVal}</p>
-                <p>Computer's choice: {compVal}</p>
-                <h2>Your Score:{playerScore}</h2>
-                <h2>Computer Score: {compScore}</h2>
+                <p className="fw-bold">Your choice: {playerVal}</p>
+                <p className="fw-bold">Computer's choice: {compVal}</p>
+                <h2 className="fw-bold">Your Score: {playerScore}</h2>
+                <h2 className="fw-bold">Computer Score: {compScore}</h2>
             </div>
         </div>
     );
