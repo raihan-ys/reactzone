@@ -20,14 +20,20 @@
   <body>
 
     <nav class="navbar navbar-expand-lg bg-dark mb-4">
-      <div class="container">
+      <div class="container position-relative">
         <img class="navbar-brand" id="appLogo" src="/src/assets/logo.png" alt="Reactzone's Logo">
-        <img src="/src/assets/rabbitEars.png" alt="Raihan Yudi Syukma" >
+        <img class="position-absolute top-50 start-50 translate-middle" src="/src/assets/rabbitEars.png"  id="bunnyEars">
         <h3 class="navbar-text text-primary">Reactzone_</h3>
       </div>
     </nav>
 
     <div id="root" class="container"></div>
+
+    <footer class="bg-dark">
+      <div class="container text-center p-3">
+        <span class="text-primary ">Made with 💘 by R.Y.S</span>
+      </div>
+    </footer>
     
     <script type="module" src="/src/main.jsx"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
