@@ -68,8 +68,8 @@ export default function RockPaperScissors() {
                 </button>
             </div>
             <div className="content">
-                <p className="fw-bold">Your choice: {playerVal}</p>
-                <p className="fw-bold">Computer's choice: {compVal}</p>
+                <p className="fw-bold text-success">Your choice: {playerVal}</p>
+                <p className="fw-bold text-danger">Computer's choice: {compVal}</p>
                 <h2 className="fw-bold">Your Score: {playerScore}</h2>
                 <h2 className="fw-bold">Computer Score: {compScore}</h2>
             </div>

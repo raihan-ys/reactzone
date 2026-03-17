@@ -1,12 +1,12 @@
 import {useState} from 'react';
 
-export default function CityQuiz() {
+export default function CityQuiz({headingStyle, paragraphStyle, textareaStyle, buttonStyle, errorStyle}) {
   const [answer, setAnswer] = useState('');
-  const [error, setError] = useState< Error | null >(null); // Error state (null if no error) defaults to null
+  const [error, setError] = useState(null); // Error state (null if no error) defaults to null
   const [status, setStatus] = useState('typing');
 
   if (status === 'success') {
-    return <h1 className={headingStyle }>That's right</h1>
+    return <h1 className={headingStyle}>That's right</h1>
   }
 
   // Handle form submission
