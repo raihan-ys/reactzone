@@ -1,0 +1,34 @@
+import { useState } from 'react';
+import CityQuiz from '../components/CityQuiz.tsx'
+import TicTacToe from '../components/TicTacToe.tsx';
+import RockPaperScissors from '../components/RockPaperScissors.tsx';
+
+function App() {
+  // Set selected game
+  const [selected, setSelected] = useState<string | null>(null);
+
+  return <>
+    <h4 className="text-primary mb-3" id="welcome-text">Welcome to Reactzone!</h4>
+    <h5>Choose a game:</h5>
+    <ul className="list-unstyled d-flex gap-2 mb-4">
+      <li>
+        <button className="btn btn-outline-primary" onClick={() => setSelected('city')}>City Quiz</button>
+      </li>
+      <li>
+        <button className="btn btn-outline-primary" onClick={() => setSelected('tictactoe')}>Tic Tac Toe (2 Players)</button>
+      </li>
+      <li>
+        <button className="btn btn-outline-primary" onClick={() => setSelected('rps')}>Rock, Paper, Scissors (Vs Com)</button>
+      </li>
+    </ul>
+
+    {/* Render the selected game below the list. Switching selection unmounts previous component and resets its state. */}
+    <div>
+      {selected === 'city' && <CityQuiz headingStyle={'text-primary'} paragraphStyle={'font-weight-bold'} textareaStyle={'rounded'} buttonStyle={'btn btn-primary'} errorStyle={'text-danger'} />}
+      {selected === 'tictactoe' && <TicTacToe />}
+      {selected === 'rps' && <RockPaperScissors />}
+    </div>
+  </>
+}
+
+export default App;

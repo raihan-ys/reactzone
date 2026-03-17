@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from 'react';
 
 type props = {
   headingStyle: string;
@@ -8,17 +8,17 @@ type props = {
   errorStyle: string;
 };
 
-export default function CityQuiz({ headingStyle, paragraphStyle, textareaStyle, buttonStyle, errorStyle }: props) {
+export default function CityQuiz({headingStyle, paragraphStyle, textareaStyle, buttonStyle, errorStyle}: props) {
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState< Error | null >(null); // Error state (null if no error) defaults to null
   const [status, setStatus] = useState('typing');
 
   if (status === 'success') {
-    return <h1 className={ headingStyle }>That's right</h1>
+    return <h1 className={headingStyle }>That's right</h1>
   }
 
   // Handle form submission
-  async function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit (e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault(); // Prevent default form submission
     setStatus('submitting');
 
@@ -37,9 +37,9 @@ export default function CityQuiz({ headingStyle, paragraphStyle, textareaStyle, 
 
   return (
     <>
-      <h2 className={ headingStyle }>City Quiz</h2>
+      <h2 className={headingStyle}>City Quiz</h2>
 
-      <p className={ paragraphStyle }>
+      <p className={paragraphStyle}>
         In which city is there a billboard that turns air into drinkable water?
       </p>
 
@@ -47,8 +47,8 @@ export default function CityQuiz({ headingStyle, paragraphStyle, textareaStyle, 
         <textarea
           value={answer}
           onChange={handleTextareaChange}
-          disabled={status === 'submitting'}
-          className={ textareaStyle }
+          disabled={status == 'submitting'}
+          className={textareaStyle}
           placeholder="Type your answer here..."
         />
         <br />
@@ -57,12 +57,12 @@ export default function CityQuiz({ headingStyle, paragraphStyle, textareaStyle, 
             answer.length === 0 ||
             status === 'submitting'
           } 
-          className={ buttonStyle }
+          className={buttonStyle}
         >
           Submit
         </button>
         {error !== null &&
-          <p className={ errorStyle }>
+          <p className={errorStyle }>
             {error.message}
           </p>
         } 
