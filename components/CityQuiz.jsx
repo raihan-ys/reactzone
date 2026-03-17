@@ -1,14 +1,6 @@
 import {useState} from 'react';
 
-type props = {
-  headingStyle: string;
-  paragraphStyle: string;
-  textareaStyle: string;
-  buttonStyle: string;
-  errorStyle: string;
-};
-
-export default function CityQuiz({headingStyle, paragraphStyle, textareaStyle, buttonStyle, errorStyle}: props) {
+export default function CityQuiz() {
   const [answer, setAnswer] = useState('');
   const [error, setError] = useState< Error | null >(null); // Error state (null if no error) defaults to null
   const [status, setStatus] = useState('typing');
@@ -18,20 +10,20 @@ export default function CityQuiz({headingStyle, paragraphStyle, textareaStyle, b
   }
 
   // Handle form submission
-  async function handleSubmit (e: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit (e) {
     e.preventDefault(); // Prevent default form submission
     setStatus('submitting');
 
     try {
       await submitForm(answer);
       setStatus('success');
-    } catch (err: Error | unknown) {
+    } catch (err) {
       setStatus('typing');
       setError(err instanceof Error ? err : new Error('An unexpected error occurred'));
     }
   }
 
-  function handleTextareaChange (e: React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleTextareaChange (e) {
     setAnswer(e.target.value);
   }
 
@@ -71,7 +63,7 @@ export default function CityQuiz({headingStyle, paragraphStyle, textareaStyle, b
   );
 
   // Pretend it's hitting the network.
-  function submitForm (answer: string) {
+  function submitForm (answer) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const shouldError = answer.toLowerCase() !== 'lima';

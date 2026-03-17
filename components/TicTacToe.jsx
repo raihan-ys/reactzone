@@ -1,8 +1,7 @@
 import {useState} from 'react';
 
-
 // Square that will build up the board
-function Square( {value, onSquareClick, isWinningSquare}) {
+function Square({value, onSquareClick, isWinningSquare}) {
   return (
     <button className={`square ${isWinningSquare ? "bg-success" : "bg-danger"} text-white border-dark rounded`} onClick={onSquareClick}>
       {value}
@@ -11,9 +10,8 @@ function Square( {value, onSquareClick, isWinningSquare}) {
 }
 
 // This parent component is keeping all the children Square's state
-function Board( {oIsNext, squares, onPlay} ) {
+function Board({oIsNext, squares, onPlay}) {
   // Handle on square click
-  // TODO: Display the location for each move in the format (row, col) in the move history list.
   function handleClick(i) {
     // Check winner or is the square filled
     if (calculateWinner(squares) || squares[i]) {
@@ -54,9 +52,9 @@ function Board( {oIsNext, squares, onPlay} ) {
         Create a function that calls handleClick(id) because if we just pass handleClick(id) 
         on the props, the function will run before the user click on it (we calling the function right away).
       */}
-			{ Array.from( { length: 3 } ).map((_, row) => (
+			{ Array.from({ length: 3 }).map((_, row) => (
         <div key={row} className="board-row">
-          { Array.from( { length: 3 } ).map((_, col) => {
+          { Array.from({ length: 3 }).map((_, col) => {
             const id = row * 3 + col;
             return (
               <Square
@@ -119,7 +117,7 @@ export default function TicTacToe() {
   const sortedMoves = isAscending ? moves : [...moves].reverse();
 
   // Create move buttons
-  const moveList = sortedMoves.map(( { move, description } ) => (
+  const moveList = sortedMoves.map(({ move, description }) => (
     <li key={move}>
       <button className="btn btn-sm btn-info mb-1" onClick={() => setCurrentMove(move)}>
         {description}

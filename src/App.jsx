@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import CityQuiz from '../components/CityQuiz.tsx'
-import TicTacToe from '../components/TicTacToe.tsx';
+import CityQuiz from '../components/CityQuiz.jsx'
+import TicTacToe from '../components/TicTacToe.jsx';
 import RockPaperScissors from '../components/RockPaperScissors.tsx';
 
 function App() {
   // Set selected game
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState(null);
 
   return <>
     <h4 className="text-primary mb-3" id="welcome-text">Welcome to Reactzone!</h4>
