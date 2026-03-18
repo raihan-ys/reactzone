@@ -31,6 +31,7 @@ function App() {
       {selected === 'city' && <CityQuiz headingStyle={'text-primary'} paragraphStyle={'font-weight-bold'} textareaStyle={'rounded'} buttonStyle={'btn btn-primary'} errorStyle={'text-danger'} />}
       {selected === 'tictactoe' && <TicTacToe />}
       {selected === 'rps' && <RockPaperScissors />}
+      {selected === 'snake' && <Snake />}
     </div>
   </>
 }
