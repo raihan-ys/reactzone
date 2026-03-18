@@ -127,7 +127,7 @@ export default function TicTacToe() {
 
 
   return (
-    <>
+    <div id="ticTacToe">
       <div className="game">
         <div className="game-board">
           <Board oIsNext={oIsNext} squares={currentSquares} onPlay={handlePlay} />
@@ -142,7 +142,7 @@ export default function TicTacToe() {
           <span>{"You are at move # " + (currentMove + 1)}</span>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
