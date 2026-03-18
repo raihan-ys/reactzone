@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CityQuiz from '../components/CityQuiz.jsx'
 import TicTacToe from '../components/TicTacToe.jsx';
 import RockPaperScissors from '../components/RockPaperScissors.tsx';
+import Snake from '../components/Snake.jsx';
 
 function App() {
   // Set selected game
@@ -19,6 +20,9 @@ function App() {
       </li>
       <li>
         <button className="btn btn-outline-primary" onClick={() => setSelected('rps')}>Rock, Paper, Scissors (Vs Com)</button>
+      </li>
+      <li>
+        <button className="btn btn-outline-primary" onClick={() => setSelected('snake')}>Snake</button>
       </li>
     </ul>
 
