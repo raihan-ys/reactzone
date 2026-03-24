@@ -31,7 +31,7 @@ function randomFood(snake) {
         y: Math.floor(Math.random() * rows)
       };
     // Check collision with snake
-    // some() method checks if at least one element in the array satisfies the provided testing function. It returns a Boolean value.
+    // The some() method of Array instances returns true if it finds an element in the array that satisfies the provided testing function. Otherwise, it returns false
     const collision = snake.some(s => s.x === pos.x && s.y === pos.y);
     if (!collision) return pos;
   }
@@ -39,9 +39,9 @@ function randomFood(snake) {
 
 export default function Snake() {
   const [snake, setSnake] = useState(initialSnake);
-  const [dir, setDir] = useState({ x: 1, y: 0 });
-  const [food, setFood] = useState(() => randomFood(initialSnake));
-  const [running, setRunning] = useState(false);
+  const [dir, setDir] = useState({ x: 1, y: 0 }); // Set snake's direction
+  const [food, setFood] = useState(() => randomFood(initialSnake)); // Set food position
+  const [running, setRunning] = useState(false); // Move the snake
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const dirRef = useRef(dir);
