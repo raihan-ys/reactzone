@@ -1,13 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import {useState, useEffect, useRef} from 'react';
 
 const cols = 50;
 const rows = 50;
+
+// Snake initialization: 3 segments in the middle of the board, moving right
 const initialSnake = [
   { x: Math.floor(cols / 2), y: Math.floor(rows / 2) },
   { x: Math.floor(cols / 2) - 1, y: Math.floor(rows / 2) },
   { x: Math.floor(cols / 2) - 2, y: Math.floor(rows / 2) },
 ];
 
+// Generate random food position that doesn't collide with the snake
 function randomFood(snake) {
   while (true) {
     const pos = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows) };
