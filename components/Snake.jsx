@@ -1,19 +1,37 @@
 import {useState, useEffect, useRef} from 'react';
 
+// The amount of columns and rows of the board
 const cols = 50;
 const rows = 50;
 
 // Snake initialization: 3 segments in the middle of the board, moving right
 const initialSnake = [
-  { x: Math.floor(cols / 2), y: Math.floor(rows / 2) },
-  { x: Math.floor(cols / 2) - 1, y: Math.floor(rows / 2) },
-  { x: Math.floor(cols / 2) - 2, y: Math.floor(rows / 2) },
+  // Starting position
+  { 
+    x: Math.floor(cols / 2),
+    y: Math.floor(rows / 2)
+  },
+  { 
+    x: Math.floor(cols / 2) - 1,
+    y: Math.floor(rows / 2)
+  },
+  { 
+    x: Math.floor(cols / 2) - 2,
+    y: Math.floor(rows / 2)
+  },
 ];
 
 // Generate random food position that doesn't collide with the snake
 function randomFood(snake) {
   while (true) {
-    const pos = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows) };
+    // Food Position (use random for random food generation)
+    const pos = 
+      {
+        x: Math.floor(Math.random() * cols), 
+        y: Math.floor(Math.random() * rows)
+      };
+    // Check collision with snake
+    // some() method checks if at least one element in the array satisfies the provided testing function. It returns a Boolean value.
     const collision = snake.some(s => s.x === pos.x && s.y === pos.y);
     if (!collision) return pos;
   }
