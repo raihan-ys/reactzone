@@ -44,6 +44,7 @@ export default function Snake() {
   const [running, setRunning] = useState(false); // Move the snake
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
+  
   const dirRef = useRef(dir);
   const runningRef = useRef(running);
 
