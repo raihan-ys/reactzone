@@ -57,7 +57,8 @@ export default function Snake() {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   
-  // useRef is a React hook that allows you to create a mutable reference that persists across re-renders. It can be used to store a value that does not trigger a re-render when it changes, such as the current direction of the snake or whether the game is running. In this code, dirRef and runningRef are created to hold the current values of dir and running, respectively, and they are updated whenever dir or running changes using useEffect hooks. This allows the game logic to access the latest values of dir and running without causing unnecessary re-renders.
+  // useRef is a React hook that allows you to create a mutable reference that persists across re-renders. It can be used to store a value that does not trigger a re-render when it changes, such as the current direction of the snake or whether the game is running. 
+  // In this code, dirRef and runningRef are created to hold the current values of dir and running, respectively, and they are updated whenever dir or running changes using useEffect hooks. This allows the game logic to access the latest values of dir and running without causing unnecessary re-renders.
   const dirRef = useRef(dir);
   const runningRef = useRef(running);
 
@@ -73,6 +74,7 @@ export default function Snake() {
     [running]
   );
 
+  // In
   useEffect(() => {
     function handleKey(e) {
       if (gameOver) return;
@@ -96,7 +98,6 @@ export default function Snake() {
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [gameOver]);
-
   useEffect(() => {
     if (!running || gameOver) return;
     const tick = () => {
