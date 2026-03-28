@@ -74,30 +74,58 @@ export default function Snake() {
     [running]
   );
 
-  // In
+  // Input keyboard untuk mengubah arah snake
+  // Pakai useEffect untuk menambahkan event listener pada window untuk menangkap input keyboard. Ketika tombol panah atau WASD ditekan, fungsi handleKey akan memeriksa arah saat ini (dirRef.current) dan memperbarui arah jika perubahan tersebut valid (misalnya, tidak membalikkan arah secara langsung). Jika game sudah berakhir (gameOver), input keyboard akan diabaikan.
   useEffect(() => {
+
     function handleKey(e) {
+      // Jika game sudah berakhir, abaikan input keyboard
       if (gameOver) return;
+
       const key = e.key;
-      const curr = dirRef.current;
+      const curr = dirRef.current; // Dapatkan arah saat ini dari dirRef
+
+      /*
+        Petunjuk arah (x, y):
+        - ArrowUp / W: (0, -1)
+        - ArrowDown / S: (0, 1)
+        - ArrowLeft / A: (-1, 0)
+        - ArrowRight / D: (1, 0)
+       */
+
+      // Bila keyboard atas atau W
       if (key === 'ArrowUp' || key === 'w') {
-        if (curr.y === 1) return; // prevent reverse
+        if (curr.y === 1) return;
         setDir({ x: 0, y: -1 });
-      } else if (key === 'ArrowDown' || key === 's') {
+      } 
+      
+      // Bila keyboard bawah atau S
+      else if (key === 'ArrowDown' || key === 's') {
         if (curr.y === -1) return;
         setDir({ x: 0, y: 1 });
-      } else if (key === 'ArrowLeft' || key === 'a') {
+      } 
+      
+      // Bila keyboard kiri atau A
+      else if (key === 'ArrowLeft' || key === 'a') {
         if (curr.x === 1) return;
         setDir({ x: -1, y: 0 });
-      } else if (key === 'ArrowRight' || key === 'd') {
+      }
+      
+      // Bila keyboard kanan atau D
+      else if (key === 'ArrowRight' || key === 'd') {
         if (curr.x === -1) return;
         setDir({ x: 1, y: 0 });
       }
     }
 
+    // Tambahkan event listener untuk menangkap input keyboard
     window.addEventListener('keydown', handleKey);
+
+    // Bersihkan event listener saat komponen unmount atau saat gameOver berubah
     return () => window.removeEventListener('keydown', handleKey);
   }, [gameOver]);
+  
+  // Pakai useEffect untuk mengatur logika permainan yang berjalan setiap interval tertentu (misalnya, setiap 100ms). Jika game sedang berjalan (running) dan belum berakhir (gameOver), fungsi tick akan dipanggil secara berkala untuk memperbarui posisi snake berdasarkan arah saat ini (dirRef.current). Fungsi tick juga akan memeriksa kolisi dengan dinding atau tubuh snake, serta apakah snake memakan makanan. Jika terjadi kolisi, game akan berakhir. Jika snake memakan makanan, posisi makanan akan diperbarui dan skor akan bertambah.
   useEffect(() => {
     if (!running || gameOver) return;
     const tick = () => {
