@@ -124,15 +124,24 @@ export default function Snake() {
     // Bersihkan event listener saat komponen unmount atau saat gameOver berubah
     return () => window.removeEventListener('keydown', handleKey);
   }, [gameOver]);
-  
-  // Pakai useEffect untuk mengatur logika permainan yang berjalan setiap interval tertentu (misalnya, setiap 100ms). Jika game sedang berjalan (running) dan belum berakhir (gameOver), fungsi tick akan dipanggil secara berkala untuk memperbarui posisi snake berdasarkan arah saat ini (dirRef.current). Fungsi tick juga akan memeriksa kolisi dengan dinding atau tubuh snake, serta apakah snake memakan makanan. Jika terjadi kolisi, game akan berakhir. Jika snake memakan makanan, posisi makanan akan diperbarui dan skor akan bertambah.
+
+  // Pakai useEffect untuk mengatur logika permainan yang berjalan setiap interval tertentu (misalnya, setiap 100ms). Jika game sedang berjalan (running) dan belum berakhir (gameOver), fungsi tick akan dipanggil secara berkala untuk memperbarui posisi snake berdasarkan arah saat ini (dirRef.current). Fungsi tick juga akan memeriksa tabrakan dengan dinding atau tubuh snake, serta apakah snake memakan makanan. Jika terjadi tabrakan, game akan berakhir. Jika snake memakan makanan, posisi makanan akan diperbarui dan skor akan bertambah.
   useEffect(() => {
+    // Jika game tidak berjalan atau sudah berakhir, jangan lakukan apa-apa
     if (!running || gameOver) return;
+
+    // Cek setiap interval untuk memperbarui posisi snake
     const tick = () => {
+      // prev adalah posisi snake saat ini, head adalah segmen pertama (kepala) dari snake, dan d adalah arah saat ini yang diambil dari dirRef.current. Posisi kepala baru dihitung dengan menambahkan perubahan arah (d.x dan d.y) ke posisi kepala saat ini (head.x dan head.y).
       setSnake(prev => {
         const head = prev[0];
         const d = dirRef.current;
-        const newHead = { x: head.x + d.x, y: head.y + d.y };
+
+        // Hitung posisi kepala baru berdasarkan arah saat ini
+        const newHead = { 
+          x: head.x + d.x, // posisi x baru = posisi x lama + perubahan arah x
+          y: head.y + d.y // posisi y baru = posisi y lama + perubahan arah y
+        };
 
         // wall collision
         if (newHead.x < 0 || newHead.x >= cols || newHead.y < 0 || newHead.y >= rows) {
@@ -197,17 +206,25 @@ export default function Snake() {
         {snake.map((seg, i) => (
           <div
             key={i}
-            className="snake"
+            className={`snake ${i === 0 ? 'head' : ''}`}
             style={{
               position: 'absolute',
               left: `${(seg.x / cols) * 100}%`,
               top: `${(seg.y / rows) * 100}%`,
               transform: 'translate(-50%, -50%)',
             }}
-          />
+          >
+            {i === 0 && (
+              <>
+                <div className="eye left" />
+                <div className="eye right" />
+              </>
+            )}
+          </div>
         ))}
 
-        <div
+        <img
+          src="src/assets/food.png"
           className="food"
           style={{
             position: 'absolute',
