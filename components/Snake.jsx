@@ -33,6 +33,7 @@ function randomFood(snake) {
       };
     // Check collision with snake
     // The some() method of Array instances returns true if it finds an element in the array that satisfies the provided testing function. Otherwise, it returns false
+    // Cek apakah posisi food yang dihasilkan bertabrakan dengan snake.
     const collision = snake.some(s => s.x === pos.x && s.y === pos.y);
     if (!collision) return pos;
   }
@@ -151,16 +152,23 @@ export default function Snake() {
         }
 
         // self collision
+        // The some() method tests whether at least one element in the array passes the test implemented by the provided function. It returns a Boolean value. Dalam hal ini, fungsi yang diberikan memeriksa apakah ada segmen snake (s) yang memiliki koordinat x dan y yang sama dengan newHead. Jika ada, itu berarti snake telah menabrak dirinya sendiri, sehingga game berakhir.
         if (prev.some(s => s.x === newHead.x && s.y === newHead.y)) {
           setGameOver(true);
           setRunning(false);
           return prev;
         }
 
+        // Cek apakah snake memakan food
         const ateFood = newHead.x === food.x && newHead.y === food.y;
+
+        // Tambahkan kepala baru di awal snake
         const newSnake = [newHead, ...prev];
-        if (!ateFood) newSnake.pop();
-        else {
+
+        // Jika tidak memakan food, hapus bagian akhir snake
+        if (!ateFood) {
+          newSnake.pop();
+        } else {
           setFood(randomFood(newSnake));
           setScore(s => s + 1);
         }
