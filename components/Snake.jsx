@@ -39,6 +39,17 @@ function randomFood(snake) {
   }
 }
 
+// Generate random grass position
+function randomGrass(snake) {
+  while(true) {
+    const pos = 
+      {
+        x: Math.floor(Math.random() * cols),
+        y: Math.floor(Math.random() * rows)
+      };
+  }
+}
+
 // Ini jantung Reactnya
 export default function Snake() {
   const [snake, setSnake] = useState(initialSnake);
@@ -52,8 +63,9 @@ export default function Snake() {
     { x: 1, 
       y: 0 
     }
-  ); // Set snake's direction
+  );
   const [food, setFood] = useState(() => randomFood(initialSnake)); // Set food position
+  const [grass, setGrass] = useState(() => randomGrass(initialSnake)) // Set grass position
   const [running, setRunning] = useState(false); // Move the snake
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
@@ -169,8 +181,9 @@ export default function Snake() {
         if (!ateFood) {
           newSnake.pop();
         } else {
+          // Buat food baru jika snake memakan food
           setFood(randomFood(newSnake));
-          setScore(s => s + 1);
+          setScore(s => s + 1); // Tambah skor
         }
 
         return newSnake;
@@ -181,6 +194,7 @@ export default function Snake() {
     return () => clearInterval(interval);
   }, [running, gameOver, food]);
 
+  // Fungsi handleStart akan dipanggil ketika tombol "Start" ditekan. Jika game sudah berakhir (gameOver), fungsi ini akan mereset permainan dengan mengembalikan posisi snake ke posisi awal, mengatur arah ke kanan, menghasilkan makanan baru, mengatur skor ke 0, dan memulai permainan. Jika game belum berakhir, fungsi ini hanya akan memulai permainan dengan mengatur running ke true.
   function handleStart() {
     if (gameOver) {
       // reset
@@ -211,12 +225,14 @@ export default function Snake() {
   return (
     <div id="snake">
       <div className="game-area" style={{ position: 'relative' }}>
-        {snake.map((seg, i) => (
+        {snake.map(
+          (seg, i) => (
           <div
             key={i}
             className={`snake ${i === 0 ? 'head' : ''}`}
             style={{
               position: 'absolute',
+              // Posisi segmen snake dihitung berdasarkan koordinat x dan y dari segmen tersebut, yang kemudian diubah menjadi persentase untuk penempatan di dalam area permainan. Transformasi translate(-50%, -50%) digunakan untuk memastikan bahwa segmen snake diposisikan dengan tepat di tengah titik koordinatnya.
               left: `${(seg.x / cols) * 100}%`,
               top: `${(seg.y / rows) * 100}%`,
               transform: 'translate(-50%, -50%)',
@@ -240,6 +256,10 @@ export default function Snake() {
             top: `${(food.y / rows) * 100}%`,
             transform: 'translate(-50%, -50%)',
           }}
+        />
+
+        <img
+          src="src/assets"
         />
       </div>
 
