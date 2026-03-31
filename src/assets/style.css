@@ -76,7 +76,7 @@ body {
 
 /* snake */
 #snake .game-area {
-  background-color: rgb(104, 76, 11);
+  background-color: rgb(192, 137, 11);
   position: relative;
   width: 900px;
   height: 900px;
@@ -115,6 +115,13 @@ body {
   left: 62%;
 }
 #snake .food {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 1;
+}
+
+#snake .grass {
   position: absolute;
   width: 30px;
   height: 30px;

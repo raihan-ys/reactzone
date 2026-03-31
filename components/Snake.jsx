@@ -22,32 +22,25 @@ const initialSnake = [
   },
 ];
 
-// Generate random food position that doesn't collide with the snake
-function randomFood(snake) {
+// Generate random food position that doesn't collide with the snake or an avoid list
+function randomFood(snake, avoid = []) {
   while (true) {
-    // Food Position (use random for random food generation)
-    const pos = 
-      {
-        x: Math.floor(Math.random() * cols), 
-        y: Math.floor(Math.random() * rows)
-      };
-    // Check collision with snake
-    // The some() method of Array instances returns true if it finds an element in the array that satisfies the provided testing function. Otherwise, it returns false
-    // Cek apakah posisi food yang dihasilkan bertabrakan dengan snake.
-    const collision = snake.some(s => s.x === pos.x && s.y === pos.y);
+    const pos = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows) };
+    const collision = snake.some(s => s.x === pos.x && s.y === pos.y) || avoid.some(a => a.x === pos.x && a.y === pos.y);
     if (!collision) return pos;
   }
 }
 
-// Generate random grass position
-function randomGrass(snake) {
-  while(true) {
-    const pos = 
-      {
-        x: Math.floor(Math.random() * cols),
-        y: Math.floor(Math.random() * rows)
-      };
+// Generate `count` random positions that don't collide with snake or any positions in `avoid`
+function randomPositions(count, snake, avoid = []) {
+  const positions = [];
+  while (positions.length < count) {
+    const pos = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows) };
+    const collSnake = snake.some(s => s.x === pos.x && s.y === pos.y);
+    const collAvoid = avoid.some(a => a.x === pos.x && a.y === pos.y) || positions.some(p => p.x === pos.x && p.y === pos.y);
+    if (!collSnake && !collAvoid) positions.push(pos);
   }
+  return positions;
 }
 
 // Ini jantung Reactnya
@@ -64,8 +57,9 @@ export default function Snake() {
       y: 0 
     }
   );
-  const [food, setFood] = useState(() => randomFood(initialSnake)); // Set food position
-  const [grass, setGrass] = useState(() => randomGrass(initialSnake)) // Set grass position
+  const initialFood = randomFood(initialSnake);
+  const [food, setFood] = useState(initialFood); // Set food position
+  const [grasses, setGrasses] = useState(() => randomPositions(13, initialSnake, [initialFood])); // 10 grass positions
   const [running, setRunning] = useState(false); // Move the snake
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
@@ -181,8 +175,8 @@ export default function Snake() {
         if (!ateFood) {
           newSnake.pop();
         } else {
-          // Buat food baru jika snake memakan food
-          setFood(randomFood(newSnake));
+          // Buat food baru jika snake memakan food (hindari grass dan snake)
+          setFood(randomFood(newSnake, grasses));
           setScore(s => s + 1); // Tambah skor
         }
 
@@ -200,7 +194,9 @@ export default function Snake() {
       // reset
       setSnake(initialSnake);
       setDir({ x: 1, y: 0 });
-      setFood(randomFood(initialSnake));
+      const nf = randomFood(initialSnake);
+      setFood(nf);
+      setGrasses(randomPositions(10, initialSnake, [nf]));
       setScore(0);
       setGameOver(false);
       setRunning(true);
@@ -216,8 +212,8 @@ export default function Snake() {
   function handleReset() {
     setRunning(false);
     setGameOver(false);
-    setSnake(initialSnake);
-    setDir({ x: 1, y: 0 });
+    setSnake(initialSnake)          
+    setScore(s => s + 1); // Tambah skor
     setFood(randomFood(initialSnake));
     setScore(0);
   }
@@ -256,11 +252,25 @@ export default function Snake() {
             top: `${(food.y / rows) * 100}%`,
             transform: 'translate(-50%, -50%)',
           }}
+          alt="food"
         />
 
-        <img
-          src="src/assets"
-        />
+        {grasses.map((g, idx) => (
+          <img
+            key={idx}
+            src="src/assets/grass.png"
+            className="grass"
+            style={{
+              position: 'absolute',
+              left: `${(g.x / cols) * 100}%`,
+              top: `${(g.y / rows) * 100}%`,
+              transform: 'translate(-50%, -50%)',
+              height: '80px',
+              width: '80px',
+            }}
+            alt={`grass-${idx}`}
+          />
+        ))}
       </div>
 
       <div style={{ marginTop: 12 }} className="game-controls">
