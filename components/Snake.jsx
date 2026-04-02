@@ -58,10 +58,10 @@ export default function Snake() {
   const [snake, setSnake] = useState(initialSnake);
 
   // Set the start direction of the snake (right)
-  /*
-    x = move horizontally
-    y = move vertically
-  */
+  /**
+   * x = move horizontally
+   * y = move vertically
+   */
   const [dir, setDir] = useState(
     { 
       x: 1, 
@@ -75,73 +75,79 @@ export default function Snake() {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   
-  // useRef is a React hook that allows you to create a mutable reference that persists across re-renders. It can be used to store a value that does not trigger a re-render when it changes, such as the current direction of the snake or whether the game is running. 
-  // In this code, dirRef and runningRef are created to hold the current values of dir and running, respectively, and they are updated whenever dir or running changes using useEffect hooks. This allows the game logic to access the latest values of dir and running without causing unnecessary re-renders.
+  /**
+   * useRef is a React hook that allows you to create a mutable reference that persists across re-renders. 
+   * It can be used to store a value that does not trigger a re-render when it changes, such as the current direction of the snake or whether the game is running. 
+   * In this code, dirRef and runningRef are created to hold the current values of dir and running, respectively, and they are updated whenever dir or running changes using useEffect hooks. 
+   * This allows the game logic to access the latest values of dir and running without causing unnecessary re-renders.
+   */
   const dirRef = useRef(dir);
   const runningRef = useRef(running);
 
-  useEffect(() => 
-    { 
-      // Change the property of dirRef
-      dirRef.current = dir; 
-    },
-    [dir]
-  );
-  useEffect(() => 
-    { runningRef.current = running; }, 
-    [running]
+  useEffect(() => { 
+    // Change the 'current' property of dirRef
+    dirRef.current = dir; 
+  },
+  [dir]
   );
 
-  // Input keyboard untuk mengubah arah snake
+  useEffect(() => { 
+    // Change the 'current' property of dirRef
+    runningRef.current = running; 
+  }, 
+  [running]);
+
+  // Get keyboard input to change snake's direction
+  /*
+   * Use useEffect to add event listener to window to catch keyboard input.
+   *
+   */
   // Pakai useEffect untuk menambahkan event listener pada window untuk menangkap input keyboard. Ketika tombol panah atau WASD ditekan, fungsi handleKey akan memeriksa arah saat ini (dirRef.current) dan memperbarui arah jika perubahan tersebut valid (misalnya, tidak membalikkan arah secara langsung). Jika game sudah berakhir (gameOver), input keyboard akan diabaikan.
   useEffect(() => {
 
     function handleKey(e) {
-      // Jika game sudah berakhir, abaikan input keyboard
+      // Stop process if game is over.
       if (gameOver) return;
 
       const key = e.key;
-      const curr = dirRef.current; // Dapatkan arah saat ini dari dirRef
+      const curr = dirRef.current; // Get current direction
 
-      /*
-        Petunjuk arah (x, y):
-        - ArrowUp / W: (0, -1)
-        - ArrowDown / S: (0, 1)
-        - ArrowLeft / A: (-1, 0)
-        - ArrowRight / D: (1, 0)
+      /**
+       * Movement (x, y):
+       * Arrow up / W: (0, -1)
+       * Arrow down / S: (0, 1)
+       * Arrow left / A: (-1, 0)
+       * Arrow right / D: (1, 0)
+       * 
+       * GRAMMAR ERROR
+       * fungsi handleKey akan memeriksa arah saat ini (dirRef.current) dan memperbarui arah jika perubahan tersebut valid (misalnya, tidak membalikkan arah secara langsung). Jika game sudah berakhir (gameOver), input keyboard akan diabaikan.
        */
-
-      // Bila keyboard atas atau W
       if (key === 'ArrowUp' || key === 'w') {
         if (curr.y === 1) return;
         setDir({ x: 0, y: -1 });
       } 
-      
-      // Bila keyboard bawah atau S
       else if (key === 'ArrowDown' || key === 's') {
         if (curr.y === -1) return;
         setDir({ x: 0, y: 1 });
       } 
-      
-      // Bila keyboard kiri atau A
       else if (key === 'ArrowLeft' || key === 'a') {
         if (curr.x === 1) return;
         setDir({ x: -1, y: 0 });
       }
-      
-      // Bila keyboard kanan atau D
       else if (key === 'ArrowRight' || key === 'd') {
         if (curr.x === -1) return;
         setDir({ x: 1, y: 0 });
       }
     }
 
-    // Tambahkan event listener untuk menangkap input keyboard
+    // Add event listner to catch keyboard input
     window.addEventListener('keydown', handleKey);
 
-    // Bersihkan event listener saat komponen unmount atau saat gameOver berubah
+
+    // Clean event listener on component unmount or gameOver change
     return () => window.removeEventListener('keydown', handleKey);
-  }, [gameOver]);
+  }, 
+  [gameOver]);
 
   // Pakai useEffect untuk mengatur logika permainan yang berjalan setiap interval tertentu (misalnya, setiap 100ms). Jika game sedang berjalan (running) dan belum berakhir (gameOver), fungsi tick akan dipanggil secara berkala untuk memperbarui posisi snake berdasarkan arah saat ini (dirRef.current). Fungsi tick juga akan memeriksa tabrakan dengan dinding atau tubuh snake, serta apakah snake memakan makanan. Jika terjadi tabrakan, game akan berakhir. Jika snake memakan makanan, posisi makanan akan diperbarui dan skor akan bertambah.
   useEffect(() => {
