@@ -4,10 +4,8 @@ import {useState, useEffect, useRef} from 'react';
 const cols = 50;
 const rows = 50;
 
-// Snake initialization: 3 segments in the middle of the board, moving right
-// Ex: [HEAD, BODY, BODY, ...]
+// Snake initialization: 3 segments (Ex: [head, body, body, ...]) in the middle of the board, moving right first
 const initialSnake = [
-  // Starting position
   { 
     x: Math.floor(cols / 2),
     y: Math.floor(rows / 2)
@@ -22,44 +20,57 @@ const initialSnake = [
   },
 ];
 
-// Generate random food position that doesn't collide with the snake or an avoid list
-function randomFood(snake, avoid = []) {
+// Generate food
+function randomFood(snake) {
   while (true) {
-    const pos = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows) };
-    const collision = snake.some(s => s.x === pos.x && s.y === pos.y) || avoid.some(a => a.x === pos.x && a.y === pos.y);
+    // Random position
+    const pos = { 
+      x: Math.floor(Math.random() * cols), 
+      y: Math.floor(Math.random() * rows) 
+    };
+
+    // Check if snake collide with food. If not, then return the position
+    const collision = snake.some(
+      s => s.x === pos.x && 
+      s.y === pos.y
+    );
     if (!collision) return pos;
   }
 }
 
-// Generate `count` random positions that don't collide with snake or any positions in `avoid`
-function randomPositions(count, snake, avoid = []) {
+// Generate grasses
+function randomGrasses(count) {
   const positions = [];
+
+  // Random positions
   while (positions.length < count) {
-    const pos = { x: Math.floor(Math.random() * cols), y: Math.floor(Math.random() * rows) };
-    const collSnake = snake.some(s => s.x === pos.x && s.y === pos.y);
-    const collAvoid = avoid.some(a => a.x === pos.x && a.y === pos.y) || positions.some(p => p.x === pos.x && p.y === pos.y);
-    if (!collSnake && !collAvoid) positions.push(pos);
+    const pos = { 
+      x: Math.floor(Math.random() * cols), 
+      y: Math.floor(Math.random() * rows) 
+    };
+
+    positions.push(pos);
   }
   return positions;
 }
 
-// Ini jantung Reactnya
 export default function Snake() {
   const [snake, setSnake] = useState(initialSnake);
 
-  // The snake start moving to right (end)
+  // Set the start direction of the snake (right)
   /*
     x = move horizontally
     y = move vertically
   */
   const [dir, setDir] = useState(
-    { x: 1, 
+    { 
+      x: 1, 
       y: 0 
     }
   );
-  const initialFood = randomFood(initialSnake);
-  const [food, setFood] = useState(initialFood); // Set food position
-  const [grasses, setGrasses] = useState(() => randomPositions(13, initialSnake, [initialFood])); // 10 grass positions
+  
+  const [food, setFood] = useState(randomFood(initialSnake)); // Set food position
+  const [grasses, setGrasses] = useState(() => randomGrasses(13)); // Set grasses positions
   const [running, setRunning] = useState(false); // Move the snake
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
@@ -196,7 +207,7 @@ export default function Snake() {
       setDir({ x: 1, y: 0 });
       const nf = randomFood(initialSnake);
       setFood(nf);
-      setGrasses(randomPositions(10, initialSnake, [nf]));
+      setGrasses(randomGrasses(13));
       setScore(0);
       setGameOver(false);
       setRunning(true);
@@ -255,9 +266,9 @@ export default function Snake() {
           alt="food"
         />
 
-        {grasses.map((g, idx) => (
+        {grasses.map((g, i) => (
           <img
-            key={idx}
+            key={i}
             src="src/assets/grass.png"
             className="grass"
             style={{
@@ -268,7 +279,7 @@ export default function Snake() {
               height: '80px',
               width: '80px',
             }}
-            alt={`grass-${idx}`}
+            alt={`grass-${i}`}
           />
         ))}
       </div>
