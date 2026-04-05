@@ -258,7 +258,7 @@ export default function Snake() {
           (seg, i) => (
           <div
             key={i}
-            className={`snake ${i === 0 ? 'head' : ''}`}
+            className={`snake ${i === 0 ? 'head' : ''} ${i === snake.length - 1 ? 'tail' : ''}`}
             style={{
               position: 'absolute',
               // Posisi segmen snake dihitung berdasarkan koordinat x dan y dari segmen tersebut, yang kemudian diubah menjadi persentase untuk penempatan di dalam area permainan. Transformasi translate(-50%, -50%) digunakan untuk memastikan bahwa segmen snake diposisikan dengan tepat di tengah titik koordinatnya.
