@@ -20,6 +20,12 @@ const initialSnake = [
   },
 ];
 
+/**
+ * TODO
+ * Don't let food and grass generated on the board's border
+ * wall: newHead.x < 0 || newHead.x >= cols || newHead.y < 0 || newHead.y >= rows
+ */
+
 // Generate food
 function randomFood(snake) {
   while (true) {
@@ -119,30 +125,40 @@ export default function Snake() {
        * Arrow left / A: (-1, 0)
        * Arrow right / D: (1, 0)
        * 
-       * GRAMMAR ERROR
-       * fungsi handleKey akan memeriksa arah saat ini (dirRef.current) dan memperbarui arah jika perubahan tersebut valid (misalnya, tidak membalikkan arah secara langsung). Jika game sudah berakhir (gameOver), input keyboard akan diabaikan.
+       * Check current direction (dirRef.current) and update it if the direction change is valid (e.g., not change directly to the opposite direction)
        */
       if (key === 'ArrowUp' || key === 'w') {
         if (curr.y === 1) return;
-        setDir({ x: 0, y: -1 });
+        setDir({ 
+          x: 0, 
+          y: -1 
+        });
       } 
       else if (key === 'ArrowDown' || key === 's') {
         if (curr.y === -1) return;
-        setDir({ x: 0, y: 1 });
+        setDir({ 
+          x: 0, 
+          y: 1 
+        });
       } 
       else if (key === 'ArrowLeft' || key === 'a') {
         if (curr.x === 1) return;
-        setDir({ x: -1, y: 0 });
+        setDir({ 
+          x: -1, 
+          y: 0 
+        });
       }
       else if (key === 'ArrowRight' || key === 'd') {
         if (curr.x === -1) return;
-        setDir({ x: 1, y: 0 });
+        setDir({ 
+          x: 1, 
+          y: 0 
+        });
       }
     }
 
     // Add event listner to catch keyboard input
     window.addEventListener('keydown', handleKey);
-
 
     // Clean event listener on component unmount or gameOver change
     return () => window.removeEventListener('keydown', handleKey);
