@@ -76,28 +76,29 @@ body {
 
 /* snake */
 #snake .game-area {
-  background-color: rgb(192, 137, 11);
+  background-color: rgb(233, 189, 85);
   position: relative;
   width: 700px;
   height: 700px;
-  border: 2px solid #dc042c;
   border-radius: 10px;
   margin: 50px auto;
   display: flex;
   flex-wrap: wrap;
-  box-shadow: 0 0 10px #abbfc0;
+  box-shadow: 0 0 20px #abbfc0;
 }
 #snake .snake {
   position: absolute;
   width: 5%;
   height: 5%;
   background-color: #e50a41;
-  border: 1px solid #c8e50a;
   z-index: 2;
 }
 #snake .snake.head {
   overflow: visible;
-  border: 1px solid #e50a41;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+#snake .snake.tail {
+  overflow: visible;
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
 }
 #snake .snake.head .eye {
