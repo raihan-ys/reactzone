@@ -92,14 +92,14 @@ body {
   height: 5%;
   background-color: #e50a41;
   z-index: 2;
+  border-radius: 30%;
 }
 #snake .snake.head {
   overflow: visible;
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
 }
 #snake .snake.tail {
-  overflow: visible;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border-radius: 100%;
 }
 #snake .snake.head .eye {
   position: absolute;

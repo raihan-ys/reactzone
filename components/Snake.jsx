@@ -35,6 +35,11 @@ function randomFood(snake) {
       y: Math.floor(Math.random() * rows) 
     };
 
+    // Don't let food generated on the board's border
+    if (pos.x === 0 || pos.x === cols - 1 || pos.y === 0 || pos.y === rows - 1) {
+      continue;
+    }
+
     // Check if snake collide with food. If not, then return the position
     const collision = snake.some(
       s => s.x === pos.x && 
@@ -54,6 +59,11 @@ function randomGrasses(count) {
       x: Math.floor(Math.random() * cols), 
       y: Math.floor(Math.random() * rows) 
     };
+
+    // Don't let grass generated on the board's border
+    if (pos.x === 0 || pos.x === cols - 1 || pos.y === 0 || pos.y === rows - 1) {
+      continue;
+    }
 
     positions.push(pos);
   }
