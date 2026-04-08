@@ -19,7 +19,7 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-lg bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg bg-dark">
       <div class="container position-relative">
         <img class="navbar-brand" id="appLogo" src="/src/assets/logo.png" alt="Reactzone's Logo">
         <img class="position-absolute top-50 start-50 translate-middle" src="/src/assets/rabbitEars.png"  id="rabbitEars">
@@ -27,7 +27,15 @@
       </div>
     </nav>
 
-    <div id="root" class="container"></div>
+    <div class="container">
+      <!-- repeated tooth images -->
+      <div id="toothContainer" class="d-flex flex-row justify-content-center"></div>
+
+      <div id="root"></div>
+
+      <!-- repeated tooth rotated image -->
+		  <div id="toothRotateContainer" class="d-flex flex-row justify-content-center"></div>
+    </div>
 
     <footer class="bg-dark">
       <div class="container text-center p-3">

@@ -20,12 +20,6 @@ const initialSnake = [
   },
 ];
 
-/**
- * TODO
- * Don't let food and grass generated on the board's border
- * wall: newHead.x < 0 || newHead.x >= cols || newHead.y < 0 || newHead.y >= rows
- */
-
 // Generate food
 function randomFood(snake) {
   while (true) {
@@ -194,7 +188,7 @@ export default function Snake() {
         };
 
         // wall collision
-        if (newHead.x < 0 || newHead.x >= cols || newHead.y < 0 || newHead.y >= rows) {
+        if (newHead.x === 0 || newHead.x === cols || newHead.y === 0 || newHead.y === rows) {
           setGameOver(true);
           setRunning(false);
           return prev;
