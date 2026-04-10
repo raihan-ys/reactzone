@@ -33,7 +33,7 @@
 
       <div id="root"></div>
 
-      <!-- repeated tooth rotated image -->
+      <!-- repeated tooth rotated images -->
 		  <div id="toothRotateContainer" class="d-flex flex-row justify-content-center"></div>
     </div>
 
@@ -43,7 +43,60 @@
       </div>
     </footer>
     
-    <script type="module" src="/src/main.jsx"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="module" src="/src/main.jsx"></script><!-- React JS -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script> <!-- Bootstrap JS-->
+    <!-- Custom JS-->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Repeat image based on container's width
+        function repeatImage(container, image) {
+          if (!container || !image) return;
+          
+          const containerWidth = container.offsetWidth;
+          const imageWidth = Math.round(parseFloat(getComputedStyle(image).width) || 0);
+          if (!imageWidth) return; // TODO: Understand what this line do
+
+          // Clear previous images to prevent duplication
+          container.innerHTML = '';
+
+          // Calculate number of images
+          const numberOfImages = Math.ceil(containerWidth / imageWidth);
+
+          // Append image to container
+          for (let i = 0; i < numberOfImages - 1; i++) {
+            const imgClone = image.cloneNode(true);
+            imgClone.style.width = imageWidth + 'px';
+            container.appendChild(imgClone);
+          }
+        }
+
+        // Repeat tooth image
+        const toothContainer = document.getElementById('toothContainer');
+        const toothImage = document.createElement('img');
+        toothImage.src = 'src/assets/tooth.png';
+        toothImage.alt = 'Sharp Tooth Image';
+        toothImage.style.width = '30px';
+        toothContainer.appendChild(toothImage);
+
+        const toothRotateContainer = document.getElementById('toothRotateContainer');
+        const toothRotateImage = document.createElement('img');
+        toothRotateImage.src = 'src/assets/toothRotated.png';
+        toothRotateImage.alt = 'Sharp Tooth Image';
+        toothRotateImage.style.width = '30px';
+        toothRotateContainer.appendChild(toothRotateImage);
+
+        // Wait for tooth image to load before applying repeatImage function
+        toothImage.addEventListener('load', () => repeatImage(toothContainer, toothImage));
+        toothRotateImage.addEventListener('load', () => repeatImage(toothRotateContainer, toothRotateImage));
+
+        // Set tooth image repeat on window resize
+        function tryRepeatImages() {
+          repeatImage(toothContainer, toothImage);
+          repeatImage(toothRotateContainer, toothRotateImage);
+        }
+
+        window.addEventListener('resize', tryRepeatImages);
+      });
+    </script>
   </body>
 </html>
