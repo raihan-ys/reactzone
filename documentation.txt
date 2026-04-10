@@ -1,0 +1,2 @@
+Saya membuat sebuah aplikasi mini game menggunakan reactJS dan masih on-progress. Project sampingan ini tujuannya memang bukan untuk
+sebaga portofolio saya yang 'cantik' tapi untuk mengasah skill react saya. 
