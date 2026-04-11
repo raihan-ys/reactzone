@@ -67,8 +67,8 @@ function randomGrasses(count) {
 export default function Snake() {
   const [snake, setSnake] = useState(initialSnake);
 
-  // Set the start direction of the snake (right)
   /**
+   * Set the start direction of the snake (right)
    * x = move horizontally
    * y = move vertically
    */
@@ -98,8 +98,7 @@ export default function Snake() {
     // Change the 'current' property of dirRef
     dirRef.current = dir; 
   },
-  [dir]
-  );
+  [dir]);
 
   useEffect(() => { 
     // Change the 'current' property of dirRef
@@ -107,12 +106,11 @@ export default function Snake() {
   }, 
   [running]);
 
-  // Get keyboard input to change snake's direction
-  /*
+  /**
+   * Get keyboard input to change snake's direction
    * Use useEffect to add event listener to window to catch keyboard input.
-   * Fix this comment
+   * Ignore keyboard input if game over.
    */
-  // Pakai useEffect untuk menambahkan event listener pada window untuk menangkap input keyboard. Ketika tombol panah atau WASD ditekan, fungsi handleKey akan memeriksa arah saat ini (dirRef.current) dan memperbarui arah jika perubahan tersebut valid (misalnya, tidak membalikkan arah secara langsung). Jika game sudah berakhir (gameOver), input keyboard akan diabaikan.
   useEffect(() => {
 
     function handleKey(e) {
@@ -170,45 +168,48 @@ export default function Snake() {
   [gameOver]);
 
   // Pakai useEffect untuk mengatur logika permainan yang berjalan setiap interval tertentu (misalnya, setiap 100ms). Jika game sedang berjalan (running) dan belum berakhir (gameOver), fungsi tick akan dipanggil secara berkala untuk memperbarui posisi snake berdasarkan arah saat ini (dirRef.current). Fungsi tick juga akan memeriksa tabrakan dengan dinding atau tubuh snake, serta apakah snake memakan makanan. Jika terjadi tabrakan, game akan berakhir. Jika snake memakan makanan, posisi makanan akan diperbarui dan skor akan bertambah.
+  /**
+   * ERROR: FIX COMMENT IN ENGLISH HERE
+   * 
+   */
   useEffect(() => {
-    // Jika game tidak berjalan atau sudah berakhir, jangan lakukan apa-apa
+    // Check if snake is not running yet or game over
     if (!running || gameOver) return;
 
     // Cek setiap interval untuk memperbarui posisi snake
     const tick = () => {
-      // prev adalah posisi snake saat ini, head adalah segmen pertama (kepala) dari snake, dan d adalah arah saat ini yang diambil dari dirRef.current. Posisi kepala baru dihitung dengan menambahkan perubahan arah (d.x dan d.y) ke posisi kepala saat ini (head.x dan head.y).
+      /**
+       * prev is the current position of the snake
+       * d is the current direction
+       */
       setSnake(prev => {
         const head = prev[0];
         const d = dirRef.current;
 
-        // Hitung posisi kepala baru berdasarkan arah saat ini
+        // Count new head position
         const newHead = { 
-          x: head.x + d.x, // posisi x baru = posisi x lama + perubahan arah x
-          y: head.y + d.y // posisi y baru = posisi y lama + perubahan arah y
+          x: head.x + d.x, // new x = current x + updated x
+          y: head.y + d.y // new y = current y + updated y
         };
 
-        // wall collision
+        // Wall collision
         if (newHead.x === 0 || newHead.x === cols || newHead.y === 0 || newHead.y === rows) {
           setGameOver(true);
           setRunning(false);
           return prev;
         }
 
-        // self collision
-        // The some() method tests whether at least one element in the array passes the test implemented by the provided function. It returns a Boolean value. Dalam hal ini, fungsi yang diberikan memeriksa apakah ada segmen snake (s) yang memiliki koordinat x dan y yang sama dengan newHead. Jika ada, itu berarti snake telah menabrak dirinya sendiri, sehingga game berakhir.
+        // Self collision
         if (prev.some(s => s.x === newHead.x && s.y === newHead.y)) {
           setGameOver(true);
           setRunning(false);
           return prev;
         }
 
-        // Cek apakah snake memakan food
+        // Does the snake ate a food? Add a new segment first
         const ateFood = newHead.x === food.x && newHead.y === food.y;
-
-        // Tambahkan kepala baru di awal snake
         const newSnake = [newHead, ...prev];
 
-        // Jika tidak memakan food, hapus bagian akhir snake
         if (!ateFood) {
           newSnake.pop();
         } else {
