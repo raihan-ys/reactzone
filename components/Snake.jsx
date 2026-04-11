@@ -55,7 +55,7 @@ function randomGrasses(count) {
     };
 
     // Don't let grass generated on the board's border
-    if (pos.x === 0 || pos.x === cols - 1 || pos.y === 0 || pos.y === rows - 1) {
+    if (pos.x <= 1 || pos.x >= cols - 2 || pos.y <= 1 || pos.y >= rows - 2) {
       continue;
     }
 
