@@ -1,8 +1,8 @@
 import {useState, useEffect, useRef} from 'react';
 
-// The amount of columns and rows of the board
-const cols = 50;
-const rows = 50;
+// The amount of columns and rows of the board (the more the amount, the slower the snake)
+const cols = 40;
+const rows = 40;
 
 // Snake initialization: 3 segments (Ex: [head, body, body, ...]) in the middle of the board, moving right first
 const initialSnake = [
@@ -110,7 +110,7 @@ export default function Snake() {
   // Get keyboard input to change snake's direction
   /*
    * Use useEffect to add event listener to window to catch keyboard input.
-   *
+   * Fix this comment
    */
   // Pakai useEffect untuk menambahkan event listener pada window untuk menangkap input keyboard. Ketika tombol panah atau WASD ditekan, fungsi handleKey akan memeriksa arah saat ini (dirRef.current) dan memperbarui arah jika perubahan tersebut valid (misalnya, tidak membalikkan arah secara langsung). Jika game sudah berakhir (gameOver), input keyboard akan diabaikan.
   useEffect(() => {
