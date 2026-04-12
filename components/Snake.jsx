@@ -167,16 +167,12 @@ export default function Snake() {
   }, 
   [gameOver]);
 
-  // Pakai useEffect untuk mengatur logika permainan yang berjalan setiap interval tertentu (misalnya, setiap 100ms). Jika game sedang berjalan (running) dan belum berakhir (gameOver), fungsi tick akan dipanggil secara berkala untuk memperbarui posisi snake berdasarkan arah saat ini (dirRef.current). Fungsi tick juga akan memeriksa tabrakan dengan dinding atau tubuh snake, serta apakah snake memakan makanan. Jika terjadi tabrakan, game akan berakhir. Jika snake memakan makanan, posisi makanan akan diperbarui dan skor akan bertambah.
-  /**
-   * ERROR: FIX COMMENT IN ENGLISH HERE
-   * 
-   */
+  // Use useEffect to set up the game logic that runs at regular intervals (e.g., every 100ms)
   useEffect(() => {
     // Check if snake is not running yet or game over
     if (!running || gameOver) return;
 
-    // Cek setiap interval untuk memperbarui posisi snake
+    // Check each interval (100ms) to move the snake
     const tick = () => {
       /**
        * prev is the current position of the snake
@@ -210,12 +206,12 @@ export default function Snake() {
         const ateFood = newHead.x === food.x && newHead.y === food.y;
         const newSnake = [newHead, ...prev];
 
+        // If the snake didn't eat food, remove the tail segment to keep the snake the same length. Else generate new food and update the score.
         if (!ateFood) {
           newSnake.pop();
         } else {
-          // Buat food baru jika snake memakan food (hindari grass dan snake)
           setFood(randomFood(newSnake, grasses));
-          setScore(s => s + 1); // Tambah skor
+          setScore(s => s + 1); // ERROR: Score add 2 instead of 1 when ate food.
         }
 
         return newSnake;
