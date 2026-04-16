@@ -123,9 +123,12 @@ body {
 }
 #snake .grass {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 80px;
+  height: 80px;
   z-index: 1;
+}
+#snake .game-controls {
+  
 }
 
 /* At smaller screen's width */
