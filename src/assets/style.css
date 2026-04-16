@@ -8,15 +8,8 @@ body {
 }
 
 /* navbar */
-#appLogo {
-  max-height: 80px;
-}
-#rabbitEars {
-  display: block;
-  max-height: 60px;
-}
 .navbar-text {
-  font-family: "Press Start 2P", system-ui;
+  font-family: "Jolly Lodger", system-ui;
   font-style: normal;
   font-weight: 400;
 }
