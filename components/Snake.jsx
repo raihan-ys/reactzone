@@ -88,7 +88,7 @@ export default function Snake() {
   /**
    * useRef is a React hook that allows you to create a mutable reference that persists across re-renders. 
    * It can be used to store a value that does not trigger a re-render when it changes, such as the current direction of the snake or whether the game is running. 
-   * In this code, dirRef and runningRef are created to hold the current values of dir and running, respectively, and they are updated whenever dir or running changes using useEffect hooks. 
+   * In this code, dirRef and runningRef are created to hold the current values of dir and running, respectively, and they are updated whenever dir or running changes using useEffect hooks. snakeRef is also created to hold the current position of the snake.
    * This allows the game logic to access the latest values of dir and running without causing unnecessary re-renders.
    */
   const dirRef = useRef(dir);
@@ -102,11 +102,12 @@ export default function Snake() {
   [dir]);
 
   useEffect(() => {
+    // Change the 'current' property of snakeRef
     snakeRef.current = snake;
   }, [snake]);
 
   useEffect(() => { 
-    // Change the 'current' property of dirRef
+    // Change the 'current' property of runningRef
     runningRef.current = running; 
   }, 
   [running]);
@@ -181,11 +182,11 @@ export default function Snake() {
     const tick = () => {
       const prev = snakeRef.current;
       const head = prev[0];
-      const d = dirRef.current;
+      const d = dirRef.current; // Get current direction
 
       // Count new head position
       const newHead = {
-        x: head.x + d.x,
+        x: head.x + d.x, // // new x = current x + updated x
         y: head.y + d.y,
       };
 
@@ -211,7 +212,7 @@ export default function Snake() {
       // Update snake once
       setSnake(newSnake);
 
-      // Handle food and score outside of setSnake to avoid duplicate increments
+      // Handle food and score
       if (ateFood) {
         setFood(randomFood(newSnake, grasses));
         setScore(s => s + 1);
@@ -255,7 +256,7 @@ export default function Snake() {
   }
 
   return (
-    <div id="snake">
+    <div id="snake" className="d-flex flex-column align-items-center">
       <div className="game-area">
         {snake.map((seg, i) => (
           <div
@@ -307,9 +308,9 @@ export default function Snake() {
       </div>
 
       {/* Buttons */}
-      <div className="game-controls mt-1">
+      <div className="game-controls mt-3 d-flex align-items-center justify-content-between" style={{ width: 300 }}>
         <div>
-          <span className="font-weight-bold">Score: {score}</span>
+          <span className="fw-bold text-success">Score: {score}</span>
         </div>
         <div>
           {!running && !gameOver && (
@@ -320,7 +321,7 @@ export default function Snake() {
           )}
           <button className="btn btn-sm btn-secondary me-2" onClick={handleReset}>Reset</button>
         </div>
-        {gameOver && <div style={{ marginTop: 8, color: 'red' }}>Game Over</div>}
+        {gameOver && <div className="fw-bold text-danger">Game Over</div>}
       </div>
     </div>
   );
