@@ -235,7 +235,7 @@ export default function Snake() {
       setGameOver(false);
       setRunning(true);
     } else {
-      // Game start (Move the snake)
+      // Game start (move the snake)
       setRunning(true);
     }
   }
@@ -262,8 +262,7 @@ export default function Snake() {
             key={i}
             className={`snake ${i === 0 ? "head" : ""} ${i === snake.length - 1 ? "tail" : ""}`}
             style={{
-              // Posisi segmen snake dihitung berdasarkan koordinat x dan y dari segmen tersebut, yang kemudian diubah menjadi persentase untuk penempatan di dalam area permainan. Transformasi translate(-50%, -50%) digunakan untuk memastikan bahwa segmen snake diposisikan dengan tepat di tengah titik koordinatnya.
-              // ERROR English:
+              // Position of the snake's segment is calculated based on the x and y coordinates of that segment, which are then converted to percentages for placement within the game area. The transform translate(-50%, -50%) is used to ensure that the snake segment is positioned precisely at the center of its coordinate point.
               left: `${(seg.x / cols) * 100}%`,
               top: `${(seg.y / rows) * 100}%`,
               transform: 'translate(-50%, -50%)',
