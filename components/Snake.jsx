@@ -93,12 +93,17 @@ export default function Snake() {
    */
   const dirRef = useRef(dir);
   const runningRef = useRef(running);
+  const snakeRef = useRef(snake);
 
   useEffect(() => { 
     // Change the 'current' property of dirRef
     dirRef.current = dir; 
   },
   [dir]);
+
+  useEffect(() => {
+    snakeRef.current = snake;
+  }, [snake]);
 
   useEffect(() => { 
     // Change the 'current' property of dirRef
@@ -174,48 +179,43 @@ export default function Snake() {
 
     // Check each interval (100ms) to move the snake
     const tick = () => {
-      /**
-       * prev is the current position of the snake
-       * d is the current direction
-       */
-      setSnake(prev => {
-        const head = prev[0];
-        const d = dirRef.current;
+      const prev = snakeRef.current;
+      const head = prev[0];
+      const d = dirRef.current;
 
-        // Count new head position
-        const newHead = { 
-          x: head.x + d.x, // new x = current x + updated x
-          y: head.y + d.y // new y = current y + updated y
-        };
+      // Count new head position
+      const newHead = {
+        x: head.x + d.x,
+        y: head.y + d.y,
+      };
 
-        // Wall collision
-        if (newHead.x === 0 || newHead.x === cols || newHead.y === 0 || newHead.y === rows) {
-          setGameOver(true);
-          setRunning(false);
-          return prev;
-        }
+      // Wall collision
+      if (newHead.x === 0 || newHead.x === cols || newHead.y === 0 || newHead.y === rows) {
+        setGameOver(true);
+        setRunning(false);
+        return;
+      }
 
-        // Self collision
-        if (prev.some(s => s.x === newHead.x && s.y === newHead.y)) {
-          setGameOver(true);
-          setRunning(false);
-          return prev;
-        }
+      // Self collision
+      if (prev.some(s => s.x === newHead.x && s.y === newHead.y)) {
+        setGameOver(true);
+        setRunning(false);
+        return;
+      }
 
-        // Does the snake ate a food? Add a new segment first
-        const ateFood = newHead.x === food.x && newHead.y === food.y;
-        const newSnake = [newHead, ...prev];
+      // Does the snake ate a food?
+      const ateFood = newHead.x === food.x && newHead.y === food.y;
+      const newSnake = [newHead, ...prev];
+      if (!ateFood) newSnake.pop();
 
-        // If the snake didn't eat food, remove the tail segment to keep the snake the same length. Else generate new food and update the score.
-        if (!ateFood) {
-          newSnake.pop();
-        } else {
-          setFood(randomFood(newSnake, grasses));
-          setScore(s => s + 1); // ERROR: Score add 2 instead of 1 when ate food.
-        }
+      // Update snake once
+      setSnake(newSnake);
 
-        return newSnake;
-      });
+      // Handle food and score outside of setSnake to avoid duplicate increments
+      if (ateFood) {
+        setFood(randomFood(newSnake, grasses));
+        setScore(s => s + 1);
+      }
     };
 
     const interval = setInterval(tick, 100);
