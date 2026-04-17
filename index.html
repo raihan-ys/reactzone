@@ -26,76 +26,80 @@
         <img class="nav-eye" src="/src/assets/eyeRotated.png" alt="Right Eye Image">
       </div>
     </nav>
+    <!-- repeated tooth images -->
+      <div id="toothContainer" class="d-flex flex-row justify-content-center"></div>
 
     <div class="container">
       <!-- ERROR: TOOTH GOES OUT OF CONTAINER -->
-      <!-- repeated tooth images -->
-      <div id="toothContainer" class="d-flex flex-row justify-content-center"></div>
 
       <div id="root" class="mt-5 mb-5"></div>
     </div>
 
     <!-- repeated tooth rotated images -->
-		<div id="toothRotateContainer" class="d-flex flex-row justify-content-center"></div>
+		<div id="toothRotateContainer" class=" d-flex flex-row justify-content-center"></div>
     
     <footer class="bg-dark border-top border-5 border-danger">
       <div class="container text-center p-3">
-        <span class="text-primary ">Made with 💘 by R.Y.S</span>
+        <span class="text-danger fw-bold">Made with 💘 by R.Y.S</span>
       </div>
     </footer>
     
     <script type="module" src="/src/main.jsx"></script><!-- React JS -->
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script> <!-- Bootstrap JS-->
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script> <!-- jQuery JS -->
     <!-- Custom JS-->
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // Repeat image based on container's width
+     $(document).ready(function() {
+        // Repeat image based on container's width.
         function repeatImage(container, image) {
-          if (!container || !image) return;
-          
-          const containerWidth = container.offsetWidth;
-          const imageWidth = Math.round(parseFloat(getComputedStyle(image).width) || 0);
-          if (!imageWidth) return; // TODO: Understand what this line do
+          // Get container's width (Convert jQuery object to raw DOM element for width calculation).
+          const containerWidth = container[0].offsetWidth;
+          const imageWidth = parseInt(image.css("width")); // Get CSS-defined width.
 
-          // Clear previous images to prevent duplication
-          container.innerHTML = '';
+          // Clear previous images to prevent duplication.
+          container.empty();
 
-          // Calculate number of images
+          // Calculate number of images.
           const numberOfImages = Math.ceil(containerWidth / imageWidth);
 
-          // Append image to container
+          // Append image to container.
           for (let i = 0; i < numberOfImages - 1; i++) {
-            const imgClone = image.cloneNode(true);
-            imgClone.style.width = imageWidth + 'px';
-            container.appendChild(imgClone);
+            const imgClone = image.clone(true).css("width", imageWidth + "px"); // Ensure cloned images maintain width.
+            container.append(imgClone);
           }
         }
 
-        // Repeat tooth image
-        const toothContainer = document.getElementById('toothContainer');
-        const toothImage = document.createElement('img');
-        toothImage.src = 'src/assets/tooth.png';
-        toothImage.alt = 'Sharp Tooth Image';
-        toothImage.style.width = '30px';
-        toothContainer.appendChild(toothImage);
+        // Repeat tooth image.
+        const toothContainer = $("#toothContainer");
+        const toothImage = $("<img>", {
+          src: "src/assets/tooth.png",
+          alt: "Sharp Tooth Image",
+          css: {
+            width: "30px"
+          }
+        }).appendTo(toothContainer); // Ensure image is in the DOM before measuring its width.
+        const toothRotateContainer = $("#toothRotateContainer");
+        const toothRotateImage = $("<img>", {
+          src: "src/assets/toothRotated.png",
+          alt: "Sharp Tooth Image",
+          css: {
+            width: "30px"
+          }
+        }).appendTo(toothRotateContainer); // Ensure image is in the DOM before measuring its width.
 
-        const toothRotateContainer = document.getElementById('toothRotateContainer');
-        const toothRotateImage = document.createElement('img');
-        toothRotateImage.src = 'src/assets/toothRotated.png';
-        toothRotateImage.alt = 'Sharp Tooth Image';
-        toothRotateImage.style.width = '30px';
-        toothRotateContainer.appendChild(toothRotateImage);
+        // Wait for tooth image to load before applying repeatImage function.
+        toothImage.on("load", function() {
+          repeatImage(toothContainer, toothImage);
+        });
+        toothRotateImage.on("load", function() {
+          repeatImage(toothRotateContainer, toothRotateImage);
+        });
 
-        // Wait for tooth image to load before applying repeatImage function
-        toothImage.addEventListener('load', () => repeatImage(toothContainer, toothImage));
-        toothRotateImage.addEventListener('load', () => repeatImage(toothRotateContainer, toothRotateImage));
-
-        // Set tooth image repeat on window resize
-        function tryRepeatImages() {
+        // Set tooth image repeat on window resize.
+        $(window).resize(function() {
           repeatImage(toothContainer, toothImage);
           repeatImage(toothRotateContainer, toothRotateImage);
-        }
-        window.addEventListener('resize', tryRepeatImages);
+        });
       });
     </script>
   </body>
