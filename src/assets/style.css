@@ -12,6 +12,10 @@ body {
   font-family: "Jolly Lodger", system-ui;
   font-style: normal;
   font-weight: 400;
+  font-size: 5em;
+}
+.nav-eye {
+  width: 200px;
 }
 
 /* contents */
