@@ -123,9 +123,6 @@ body {
   height: 80px;
   z-index: 1;
 }
-#snake .game-controls {
-  
-}
 
 /* At smaller screen's width */
 @media (max-width: 767px) {
