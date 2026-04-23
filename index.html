@@ -29,7 +29,7 @@
     <!-- repeated tooth images -->
     <div id="toothContainer" class="d-flex flex-row justify-content-center"></div>
 
-    <div class="container bg-light">
+    <div class="container bg-light mt-3 mb-3 rounded-3 p-4">
       <div id="root" class="mt-5 mb-5"></div>
     </div>
 
@@ -48,26 +48,27 @@
     <!-- Custom JS-->
     <script>
      $(document).ready(function() {
-        // Repeat image based on container's width.
+        // Repeat image based on container's width
         function repeatImage(container, image) {
-          // Get container's width (Convert jQuery object to raw DOM element for width calculation).
+          // Get container's width (Convert jQuery object to raw DOM element for width calculation)
           const containerWidth = container[0].offsetWidth;
-          const imageWidth = parseInt(image.css("width")); // Get CSS-defined width.
+          // Get CSS-defined image's width
+          const imageWidth = parseInt(image.css("width"));
 
-          // Clear previous images to prevent duplication.
+          // Clear previous images to prevent duplication
           container.empty();
 
-          // Calculate number of images.
+          // Calculate number of images
           const numberOfImages = Math.ceil(containerWidth / imageWidth);
 
-          // Append image to container.
+          // Append image to container
           for (let i = 0; i < numberOfImages - 1; i++) {
-            const imgClone = image.clone(true).css("width", imageWidth + "px"); // Ensure cloned images maintain width.
+            const imgClone = image.clone(true).css("width", imageWidth + "px");
             container.append(imgClone);
           }
         }
 
-        // Repeat tooth image.
+        // Repeat tooth image
         const toothContainer = $("#toothContainer");
         const toothImage = $("<img>", {
           src: "src/assets/tooth.png",
@@ -75,7 +76,8 @@
           css: {
             width: "30px"
           }
-        }).appendTo(toothContainer); // Ensure image is in the DOM before measuring its width.
+        }).appendTo(toothContainer);
+
         const toothRotateContainer = $("#toothRotateContainer");
         const toothRotateImage = $("<img>", {
           src: "src/assets/toothRotated.png",
@@ -83,9 +85,9 @@
           css: {
             width: "30px"
           }
-        }).appendTo(toothRotateContainer); // Ensure image is in the DOM before measuring its width.
+        }).appendTo(toothRotateContainer);
 
-        // Wait for tooth image to load before applying repeatImage function.
+        // Wait for tooth image to load before applying repeatImage function
         toothImage.on("load", function() {
           repeatImage(toothContainer, toothImage);
         });
@@ -93,7 +95,7 @@
           repeatImage(toothRotateContainer, toothRotateImage);
         });
 
-        // Set tooth image repeat on window resize.
+        // Set tooth image repeat on window resize
         $(window).resize(function() {
           repeatImage(toothContainer, toothImage);
           repeatImage(toothRotateContainer, toothRotateImage);
