@@ -134,7 +134,8 @@ export default function TicTacToe() {
       <div className="game">
         <div className="game-board">
           <Board oIsNext={oIsNext} squares={currentSquares} onPlay={handlePlay} />
-          <span class="fw-bold fs-5">{"You are at move # " + (currentMove + 1)}</span>
+          {/* ERROR: margin not working */}
+          <span className="fw-bold fs-5 mt-5">{"You are at move # " + (currentMove + 1)}</span>
         </div>
         <div className="game-info">
           <button className="btn btn-sm btn-secondary mb-2 fs-5" onClick={() => setIsAscending(!isAscending)}>
