@@ -3,7 +3,7 @@ import {useState} from 'react';
 // Square that will build up the board
 function Square({value, onSquareClick, isWinningSquare}) {
   return (
-    <button className={`square ${isWinningSquare ? "bg-success" : "bg-danger"} text-white border-dark rounded`} onClick={onSquareClick}>
+    <button className={`square ${isWinningSquare ? "bg-success" : "bg-danger"} text-white border border-dark rounded`} onClick={onSquareClick}>
       {value}
     </button>
   );
@@ -37,23 +37,26 @@ function Board({oIsNext, squares, onPlay}) {
   const winner = winnerInfo?.player;
   const winningLine = winnerInfo?.line;
   let status;
+  let statusTextColor;
   if (winner) {
     status = "Winner: " + winner;
+    statusTextColor = "text-success";
   } else if (!winner && squares.every(square => square !== null)) {
     status = "It's a draw!";
+    statusTextColor = "text-success";
   } else {
     status = "Next Player: " + (oIsNext ? 'O' : 'X');
   }
 
 	return (
 		<> 
-      <div className="status">{status}</div>
+      <div className={`status fw-bold fs-2 ${statusTextColor}`}>{status}</div>
       {/*
         Create a function that calls handleClick(id) because if we just pass handleClick(id) 
         on the props, the function will run before the user click on it (we calling the function right away).
       */}
 			{ Array.from({ length: 3 }).map((_, row) => (
-        <div key={row} className="board-row">
+        <div key={row}>
           { Array.from({ length: 3 }).map((_, col) => {
             const id = row * 3 + col;
             return (
@@ -119,7 +122,7 @@ export default function TicTacToe() {
   // Create move buttons
   const moveList = sortedMoves.map(({ move, description }) => (
     <li key={move}>
-      <button className="btn btn-sm btn-info mb-1" onClick={() => setCurrentMove(move)}>
+      <button className="btn btn-m btn-info mb-1" onClick={() => setCurrentMove(move)}>
         {description}
       </button>
     </li>
@@ -127,19 +130,19 @@ export default function TicTacToe() {
 
 
   return (
-    <div id="ticTacToe">
+    <div id="ticTacToe" className="d-flex flex-column align-items-center">
       <div className="game">
         <div className="game-board">
           <Board oIsNext={oIsNext} squares={currentSquares} onPlay={handlePlay} />
+          <span class="fw-bold fs-5">{"You are at move # " + (currentMove + 1)}</span>
         </div>
         <div className="game-info">
-          <button className="btn btn-sm btn-secondary mb-2" onClick={() => setIsAscending(!isAscending)}>
+          <button className="btn btn-sm btn-secondary mb-2 fs-5" onClick={() => setIsAscending(!isAscending)}>
             Sort moves: {isAscending ? "Ascending ↑" : "Descending ↓"}
           </button>
           <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
             {moveList}
           </ul>
-          <span>{"You are at move # " + (currentMove + 1)}</span>
         </div>
       </div>
     </div>
