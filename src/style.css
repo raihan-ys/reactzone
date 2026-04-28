@@ -42,23 +42,15 @@ body {
 
 /* ticTacToe */
 #ticTacToe .square {
-  background: #fff;
-  border: 1px solid #999;
   float: left;
-  font-size: 24px;
+  font-size: 50px;
   font-weight: bold;
-  height: 34px;
-  line-height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
+  height: 90px;
+  width: 90px;
   text-align: center;
-  width: 34px;
-}
-#ticTacToe .board-row:after {
-  clear: both;
-  content: '';
-  display: table;
+  margin-top: -1px;
+  margin-right: -1px;
+  padding: 0;
 }
 #ticTacToe .status {
   margin-bottom: 10px;
