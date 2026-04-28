@@ -281,7 +281,7 @@ export default function Snake() {
 
         {/* Food */}
         <img
-          src="src/assets/food.png"
+          src="/images/food.png"
           className="food"
           style={{
             left: `${(food.x / cols) * 100}%`,
@@ -295,7 +295,7 @@ export default function Snake() {
         {grasses.map((g, i) => (
           <img
             key={i}
-            src="src/assets/grass.png"
+            src="/images/grass.png"
             className="grass"
             style={{
               left: `${(g.x / cols) * 100}%`,
