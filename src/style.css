@@ -18,6 +18,14 @@ body {
   width: 200px;
 }
 
+/* footer */
+footer span {
+  font-family: "Jolly Lodger", system-ui;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5em;
+}
+
 /* contents */
 #welcome-text {
   --chars: 20;
