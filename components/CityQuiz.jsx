@@ -6,7 +6,11 @@ export default function CityQuiz({headingStyle, paragraphStyle, textareaStyle, b
   const [status, setStatus] = useState('typing');
 
   if (status === 'success') {
-    return <h1 className={headingStyle}>That's right</h1>
+    return (
+      <div className="d-flex flex-column align-items-center">
+        <h1 className={headingStyle}>That's right</h1>
+      </div>
+    );
   }
 
   // Handle form submission
@@ -28,7 +32,7 @@ export default function CityQuiz({headingStyle, paragraphStyle, textareaStyle, b
   }
 
   return (
-    <>
+    <div className="d-flex flex-column align-items-center">
       <h2 className={headingStyle}>City Quiz</h2>
 
       <p className={paragraphStyle}>
@@ -59,7 +63,7 @@ export default function CityQuiz({headingStyle, paragraphStyle, textareaStyle, b
           </p>
         } 
       </form>
-    </>
+    </div>
   );
 
   // Pretend it's hitting the network.

@@ -55,7 +55,7 @@ export default function RockPaperScissors() {
 
     return (
         <div className="container text-center">
-            <h1 className="text-primary">Welcome to Rock, Paper, Scissors Game!</h1>
+            <h1 className="text-primary">Welcome to Rock, Paper, Scissors!</h1>
             <div className="d-flex flex-row justify-content-center gap-3 mb-4">
                 <button className="btn btn-primary" onClick={() => decision("ROCK")}>
                     <i className="fas fa-hand-rock" /> Rock
