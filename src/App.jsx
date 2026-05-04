@@ -24,6 +24,12 @@ function App() {
       <li>
         <button className="btn btn-outline-primary" onClick={() => setSelected('snake')}>Snake</button>
       </li>
+      <li>
+        <button className="btn btn-danger" onClick={() => setSelected(null)}>Clear</button>
+      </li>
+      <li>
+        <button className="btn btn-secondary" onClick={() => alert('This is a collection of simple games built with React. Click on any game to play!')}>Help</button>
+      </li>
     </ul>
 
     {/* Render the selected game below the list. Switching selection unmounts previous component and resets its state. */}
