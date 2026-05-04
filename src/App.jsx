@@ -11,26 +11,30 @@ function App() {
   return <>
     <h4 className="text-primary mb-3" id="welcome-text">Welcome to Reactzone!</h4>
     <h5>Choose a game:</h5>
-    <ul className="list-unstyled d-flex gap-2 mb-4">
-      <li>
-        <button className="btn btn-outline-primary" onClick={() => setSelected('city')}>City Quiz</button>
-      </li>
-      <li>
-        <button className="btn btn-outline-primary" onClick={() => setSelected('tictactoe')}>Tic Tac Toe (2 Players)</button>
-      </li>
-      <li>
-        <button className="btn btn-outline-primary" onClick={() => setSelected('rps')}>Rock, Paper, Scissors (Vs Com)</button>
-      </li>
-      <li>
-        <button className="btn btn-outline-primary" onClick={() => setSelected('snake')}>Snake</button>
-      </li>
-      <li>
-        <button className="btn btn-danger" onClick={() => setSelected(null)}>Clear</button>
-      </li>
-      <li>
-        <button className="btn btn-secondary" onClick={() => alert('This is a collection of simple games built with React. Click on any game to play!')}>Help</button>
-      </li>
-    </ul>
+    <div className="d-flex mb-4">
+      <ul className="list-unstyled d-flex gap-2 flex-grow-1">
+        <li>
+          <button className="btn btn-outline-primary" onClick={() => setSelected('city')}>City Quiz</button>
+        </li>
+        <li>
+          <button className="btn btn-outline-primary" onClick={() => setSelected('tictactoe')}>Tic Tac Toe (2 Players)</button>
+        </li>
+        <li>
+          <button className="btn btn-outline-primary" onClick={() => setSelected('rps')}>Rock, Paper, Scissors (Vs Com)</button>
+        </li>
+        <li>
+          <button className="btn btn-outline-primary" onClick={() => setSelected('snake')}>Snake</button>
+        </li>
+      </ul>
+      <ul className="list-unstyled d-flex gap-2">
+        <li>
+          <button className="btn btn-danger" onClick={() => setSelected(null)}>Clear</button>
+        </li>
+        <li>
+          <button className="btn btn-secondary" onClick={() => alert('This is a collection of simple games built with React. Click on any game to play!')}>Help</button>
+        </li>
+      </ul>
+    </div>
 
     {/* Render the selected game below the list. Switching selection unmounts previous component and resets its state. */}
     <div>
